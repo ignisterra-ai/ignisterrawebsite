@@ -1,0 +1,1137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
+
+/* 晟垚品牌樣式變數和自定義樣式 */
+:root {
+  /* 品牌主色調 */
+  --primary-red: #8B0000;
+  --primary-blue: #002366;
+  --secondary-red: #CC0000;
+  --secondary-blue: #4D79FF;
+  
+  /* 輔助色調 */
+  --accent-orange: #FF8C00;
+  --accent-gold: #FFD700;
+  
+  /* 中性色調 */
+  --neutral-white: #FFFFFF;
+  --neutral-light-gray: #F5F5F5;
+  --neutral-medium-gray: #CCCCCC;
+  --neutral-dark-gray: #333333;
+  
+  /* 背景光晕效果变量 */
+  --glow-x: 0px;
+  --glow-y: 0px;
+  --glow-size: 1;
+  --glow-opacity: 0.5;
+  --glow-rotation: 0deg;
+  
+  /* 卡片颜色RGB值 - 用于动态样式 */
+  --color-blue-300: 147, 197, 253;
+  --color-red-300: 252, 165, 165;
+  --color-amber-300: 252, 211, 77;
+  --color-purple-300: 216, 180, 254;
+  --color-slate-300: 203, 213, 225;
+  --color-emerald-300: 110, 231, 183;
+  --color-rose-300: 253, 164, 175;
+  --color-pink-300: 249, 168, 212;
+  --color-indigo-300: 165, 180, 252;
+  --color-cyan-300: 103, 232, 249;
+  --color-teal-300: 94, 234, 212;
+  
+  /* 卡片更深色的颜色 - 用于更暗背景下的图标 */
+  --color-blue-400: 96, 165, 250;
+  --color-red-400: 248, 113, 113;
+  --color-amber-400: 251, 191, 36;
+  --color-purple-400: 192, 132, 252;
+  --color-slate-400: 148, 163, 184;
+  --color-emerald-400: 52, 211, 153;
+  --color-rose-400: 251, 113, 133;
+  --color-pink-400: 244, 114, 182;
+  --color-indigo-400: 129, 140, 248;
+  --color-cyan-400: 34, 211, 238;
+  --color-teal-400: 45, 212, 191;
+  
+  /* 卡片最深色的颜色 - 用于光晕效果 */
+  --color-blue-600: 37, 99, 235;
+  --color-red-600: 220, 38, 38;
+  --color-amber-600: 217, 119, 6;
+  --color-purple-600: 147, 51, 234;
+  --color-slate-600: 71, 85, 105;
+  --color-emerald-600: 5, 150, 105;
+  --color-rose-600: 225, 29, 72;
+  --color-pink-600: 219, 39, 119;
+  --color-indigo-600: 79, 70, 229;
+  --color-cyan-600: 8, 145, 178;
+  --color-teal-600: 13, 148, 136;
+}
+
+/* 基礎設定 */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', 'Microsoft JhengHei', 'Open Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 圖片透明度修復 */
+[style*="background-image"] {
+  background-color: transparent !important;
+}
+
+/* Next.js Image 组件透明度修复 */
+img, span[style*="box-sizing: border-box"] {
+  background-color: transparent !important;
+  background-image: none !important;
+  isolation: isolate;
+}
+
+/* 确保手部图片透明*/
+.hand-left img, .hand-right img {
+  background-color: transparent !important;
+  mix-blend-mode: multiply;
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
+}
+
+/* 專門針對手形圖片的透明度修復 */
+[alt="机械手"], [alt="人手"] {
+  background-color: transparent !important;
+  background-image: none !important;
+  mix-blend-mode: multiply !important;
+  filter: none !important;
+}
+
+/* 確保圖片容器也是透明的 */
+.hand-left > div, .hand-right > div {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* ===== 优化背景光晕效果 ===== */
+.background-glow {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  transform: none !important;
+  /* 改进橙金色系光暈效果 - 更加精细的渐变层次 */
+  background: 
+    /* 中心強光 - 更精细的橙金色核心 */
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(255, 255, 220, 0.98) 0%,
+      rgba(255, 245, 200, 0.9) 1.5%,
+      rgba(255, 225, 150, 0.8) 3%,
+      rgba(255, 200, 120, 0.75) 4.5%,
+      rgba(255, 170, 70, 0.65) 6.5%,
+      rgba(255, 140, 0, 0.45) 10%,
+      rgba(230, 120, 0, 0.25) 18%,
+      rgba(0, 0, 0, 0) 35%
+    ),
+    /* 橙金色浅层光晕 - 增強亮度与穿透力 */
+    radial-gradient(
+      circle at 45% 40%,
+      rgba(255, 190, 60, 0.3) 0%,
+      rgba(255, 170, 40, 0.25) 15%,
+      rgba(255, 140, 0, 0.18) 30%,
+      rgba(255, 140, 0, 0.1) 50%,
+      rgba(255, 140, 0, 0) 75%
+    ),
+    /* 深层金黃光暈 - 提升层次感 */
+    radial-gradient(
+      circle at 55% 55%,
+      rgba(255, 215, 0, 0.25) 0%,
+      rgba(255, 215, 0, 0.2) 20%,
+      rgba(255, 215, 0, 0.15) 40%,
+      rgba(255, 215, 0, 0.08) 60%,
+      rgba(255, 215, 0, 0) 80%
+    ),
+    /* 温暖红褐色点缀 - 丰富层次感 */
+    radial-gradient(
+      circle at 52% 58%,
+      rgba(200, 90, 0, 0.15) 0%,
+      rgba(180, 80, 0, 0.1) 25%,
+      rgba(180, 80, 0, 0.07) 45%,
+      rgba(180, 80, 0, 0.03) 65%,
+      rgba(180, 80, 0, 0) 85%
+    ),
+    /* 增加细腻深橙色光晕 - 增加深度 */
+    radial-gradient(
+      circle at 46% 44%,
+      rgba(160, 70, 0, 0.12) 0%,
+      rgba(160, 70, 0, 0.15) 35%,
+      rgba(160, 70, 0, 0.08) 65%,
+      rgba(160, 70, 0, 0.04) 85%,
+      rgba(160, 70, 0, 0) 100%
+    ),
+    /* 更广范围的温暖底层光晕 - 扩大影响范围 */
+    radial-gradient(
+      circle at 54% 52%,
+      rgba(220, 120, 20, 0.06) 0%,
+      rgba(200, 100, 0, 0.12) 40%,
+      rgba(200, 100, 0, 0.06) 70%,
+      rgba(200, 100, 0, 0) 100%
+    ) !important;
+  mix-blend-mode: screen !important;
+  pointer-events: none !important;
+  filter: blur(65px) contrast(1.15) saturate(1.2) !important;
+  opacity: var(--glow-opacity, 0.85) !important;
+  z-index: -1 !important;
+  will-change: filter, opacity, background-position !important;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  isolation: isolate !important;
+  display: block !important;
+  visibility: visible !important;
+  animation: glow-breath 15s infinite alternate ease-in-out !important;
+  transition: filter 0.5s ease-out !important;
+}
+
+/* 改进呼吸动画效果 - 更自然的橙金色系光晕变化 */
+@keyframes glow-breath {
+  0% {
+    filter: blur(65px) contrast(1.1) saturate(1.0) brightness(0.95) !important;
+    opacity: 0.85 !important;
+    transform: translate(0, 0) scale(1.01) rotate(0deg) !important;
+  }
+  25% {
+    filter: blur(68px) contrast(1.15) saturate(1.05) brightness(0.97) !important;
+    opacity: 0.88 !important;
+    transform: translate(0, 0) scale(1.03) rotate(0.2deg) !important;
+  }
+  50% {
+    filter: blur(72px) contrast(1.2) saturate(1.1) brightness(1.0) !important;
+    opacity: 0.92 !important;
+    transform: translate(0, 0) scale(1.04) rotate(0.5deg) !important;
+  }
+  75% {
+    filter: blur(75px) contrast(1.25) saturate(1.15) brightness(1.03) !important;
+    opacity: 0.95 !important;
+    transform: translate(0, 0) scale(1.05) rotate(0.3deg) !important;
+  }
+  100% {
+    filter: blur(70px) contrast(1.2) saturate(1.1) brightness(0.98) !important;
+    opacity: 0.9 !important;
+    transform: translate(0, 0) scale(1.03) rotate(0.1deg) !important;
+  }
+}
+
+@layer components {
+  /* 按鈕樣式 */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-medium text-white transition-all duration-300 shadow-md;
+    background: linear-gradient(135deg, #0a2178, #8a0000);
+  }
+
+  .btn-primary:hover {
+    @apply -translate-y-0.5 shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-medium border transition-all duration-300;
+    border-color: #0a2178;
+    color: #0a2178;
+  }
+
+  .btn-secondary:hover {
+    @apply -translate-y-0.5 bg-opacity-5;
+  }
+
+  /* 漸變文字 */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, 
+      rgba(0, 35, 102, 0.95), 
+      rgba(50, 80, 170, 0.95), 
+      rgba(139, 0, 0, 0.95));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 标题文字的特殊渐变效果 */
+  .gradient-text-title {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, 
+      #0a1f5c 0%, 
+      #0c2a7a 15%, 
+      #243c8c 30%, 
+      #4a2c5a 50%, 
+      #6a1a2a 70%,
+      #8a0000 85%,
+      #a03300 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    animation: subtle-title-shift 4s infinite alternate ease-in-out;
+    background-size: 200% 100%;
+  }
+  
+  /* 新增漸變按鈕樣式 */
+  .btn-gradient {
+    background: linear-gradient(135deg, #0a1f5c, #243c8c, #6a1a2a, #8a0000);
+    background-size: 300% 300%;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    animation: gradientShift 4s ease infinite;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* 引力場效果 */
+  .gravity-field {
+    @apply relative;
+  }
+  
+  .gravity-field-item {
+    @apply transition-transform duration-500;
+    will-change: transform;
+  }
+  
+  /* 手部特效样式 */
+  .hand-left, .hand-right {
+    @apply transition-all duration-300;
+    will-change: transform;
+    transform-origin: center;
+  }
+  
+  .hand-touching {
+    /* 移除阴影和边框特效，保持透明效果 */
+    opacity: 1;
+    transition: all 0.3s ease-out;
+  }
+  
+  /* 能量脈衝特效 - 改进为更华丽的金色能量，但强度降低到20% */
+  .energy-pulse {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 235, 0.19) 0%,
+      rgba(255, 215, 130, 0.15) 25%,
+      rgba(255, 160, 60, 0.11) 50%,
+      rgba(200, 80, 0, 0.07) 75%,
+      rgba(0, 0, 0, 0) 90%
+    );
+    filter: blur(8px);
+    transform: scale(0);
+    animation: pulse-out 2.2s ease-out forwards;
+    z-index: 20;
+    pointer-events: none;
+    opacity: 0.19;
+    will-change: transform, opacity, filter;
+  }
+  
+  .energy-particle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    opacity: 0.16;
+    filter: blur(3px);
+    z-index: 15;
+    pointer-events: none;
+    background-color: rgba(255, 215, 0, 0.16);
+    will-change: transform, opacity, filter;
+  }
+  
+  /* 文本发光效果 */
+  .text-glow {
+    text-shadow: 0 0 15px rgba(255, 140, 0, 0.6);
+  }
+  
+  /* 按钮脉动效果 */
+  .pulse-glow {
+    animation: btn-pulse 2s infinite;
+  }
+
+  /* 按鈕樣式 - 透明按鈕 */
+  .btn-transparent {
+    background: transparent;
+    color: #0a1f5c;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid #0a1f5c;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .btn-transparent:hover {
+    color: white;
+    transform: translateY(-2px);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-transparent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a1f5c, #243c8c, #6a1a2a, #8a0000);
+    background-size: 300% 300%;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-transparent:hover::before {
+    opacity: 1;
+    animation: gradientShift 4s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* 新增组样式支持 */
+  .group:hover .group-hover\:translate-x-1 {
+    transform: translateX(0.25rem);
+  }
+  
+  .group:hover .group-hover\:rotate-45 {
+    transform: rotate(45deg);
+  }
+  
+  .group:hover .group-hover\:scale-x-100 {
+    transform: scaleX(1);
+  }
+  
+  .group:hover .group-hover\:translate-x-0 {
+    transform: translateX(0);
+  }
+
+  /* 添加卡片亮影悬停效果 */
+  .group:hover > div[style*="translateX(-100%)"] {
+    transform: translateX(100%);
+  }
+  
+  /* 新增卡片亮影效果 */
+  .group:hover .card-shine-effect {
+    transform: translateX(100%) !important;
+  }
+}
+
+/* 重新定義這些脈衝動畫，使用不同的名稱避免重複 */
+@keyframes btn-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(77, 121, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(77, 121, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(77, 121, 255, 0);
+  }
+}
+
+/* 更自然的脉冲动画 - 改进能量扩散效果，但强度降低到20% */
+@keyframes pulse-out {
+  0% {
+    transform: scale(0);
+    opacity: 0.19;
+    filter: blur(5px);
+  }
+  20% {
+    opacity: 0.18;
+    filter: blur(8px);
+  }
+  60% {
+    opacity: 0.14;
+    filter: blur(10px);
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+    filter: blur(15px);
+  }
+}
+
+/* 關鍵影格動畫 */
+/* 此动画仅用于特定元素，不用于主光晕 */
+@keyframes energy-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}
+
+/* 手部元素樣式 */
+.hand-left, .hand-right {
+  position: relative;
+  z-index: 20;
+  /* 添加默认位置偏移，确保手指不会太远 */
+  transform: translateX(0);
+  will-change: transform;
+}
+
+.hand-touching {
+  /* 改进触摸效果，更加明显 */
+  filter: brightness(1.15);
+  transition: filter 0.3s ease-out;
+}
+
+.text-glow {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* 微粒樣式 */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.particle-red {
+  background-color: rgba(255, 50, 50, 0.6);
+  box-shadow: 0 0 8px rgba(255, 50, 50, 0.4);
+}
+
+.particle-blue {
+  background-color: rgba(50, 50, 255, 0.6);
+  box-shadow: 0 0 8px rgba(50, 50, 255, 0.4);
+}
+
+/* 波紋效果 */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 1.5s ease-out forwards;
+  pointer-events: none;
+}
+
+/* 動畫關鍵幀 */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(10);
+    opacity: 0;
+  }
+}
+
+/* 修復重复定义的动画，修正语法错误 */
+@keyframes particle-move-global {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--target-x), var(--target-y)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* 響應式調整 - 改進手部圖像在各種屏幕尺寸下的顯示 */
+@media (max-width: 1400px) {
+  .hand-left, .hand-right {
+    transform: scale(0.95);
+  }
+}
+
+@media (max-width: 1200px) {
+  .hand-left, .hand-right {
+    transform: scale(0.9);
+  }
+  
+  /* 優化 1200px 及以下屏幕的光暈效果 */
+  .background-glow {
+    filter: blur(60px) contrast(1.1) saturate(1.1) !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .hand-left, .hand-right {
+    transform: scale(0.85);
+  }
+  
+  /* 減小間距使手部更接近 */
+  .hand-left img {
+    right: 8% !important;
+  }
+  
+  .hand-right img {
+    left: 8% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hand-left, .hand-right {
+    transform: scale(0.8);
+  }
+  
+  /* 在小屏幕上减少图像间距 */
+  .hand-left img {
+    right: 5% !important;
+  }
+  
+  .hand-right img {
+    left: 5% !important;
+  }
+  
+  /* 小屏幕上优化光晕效果 */
+  .background-glow {
+    filter: blur(55px) contrast(1.05) saturate(1.05) !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .hand-left, .hand-right {
+    transform: scale(0.75);
+  }
+  
+  /* 在最小屏幕上进一步减少间距 */
+  .hand-left img {
+    right: 0% !important;
+  }
+  
+  .hand-right img {
+    left: 0% !important;
+  }
+  
+  /* 最小屏幕简化光晕效果以提高性能 */
+  .background-glow {
+    filter: blur(50px) contrast(1) saturate(1) !important;
+  }
+}
+
+/* 確保所有容器都沒有背景 */
+.hand-container * {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 鼠標特效樣式 */
+.cursor-effect {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(139, 0, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.2s, height 0.2s, border-color 0.2s, transform 0.05s;
+  will-change: transform, width, height, border-color;
+  backdrop-filter: blur(1px);
+}
+
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(0, 35, 102, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  will-change: transform;
+  transition: transform 0.1s;
+}
+
+/* 鼠標懸停在可點擊元素上的效果 */
+.cursor-effect.hover {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(255, 140, 0, 0.6);
+  background-color: rgba(255, 215, 0, 0.1);
+  transition: all 0.1s ease-out;
+}
+
+/* 鼠標點擊時的效果 */
+.cursor-effect.active {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(139, 0, 0, 0.2);
+  border-color: rgba(0, 35, 102, 0.7);
+  transition: all 0.1s ease-out;
+}
+
+/* 鼠標拖尾效果 */
+.cursor-trail {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(255, 140, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  animation: fadeOut 1s linear forwards;
+  will-change: transform, opacity;
+}
+
+/* 添加点击水波效果 */
+.cursor-ripple {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, rgba(255, 140, 0, 0.3) 0%, rgba(255, 215, 0, 0.2) 50%, transparent 80%);
+  border: 2px solid rgba(255, 215, 0, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: rippleEffect 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  pointer-events: none;
+  z-index: 9997;
+  will-change: transform, opacity;
+}
+
+/* 水波动画 */
+@keyframes rippleEffect {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+}
+
+/* 改进标题渐变动画 - 速度优化为4秒 */
+@keyframes subtle-title-shift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+/* 痛点卡片样式 */
+.pain-point-container {
+  position: relative;
+  perspective: 1000px;
+}
+
+.card-wrapper {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+}
+
+.card-hit {
+  animation: cardHit 0.5s ease-out;
+}
+
+.energy-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+/* 牌卡点击特效 */
+@keyframes cardHit {
+  0% { transform: scale(1) rotate(0deg); }
+  20% { transform: scale(0.95) rotate(-2deg); }
+  40% { transform: scale(0.98) rotate(2deg); }
+  60% { transform: scale(0.95) rotate(-1deg); }
+  80% { transform: scale(0.98) rotate(1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* 粒子飞散特效 */
+@keyframes particleFly {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    transform: translate(var(--end-x, 50px), var(--end-y, 50px));
+    opacity: 0;
+    scale: 0.5;
+  }
+}
+
+/* 在文件尾部添加玻璃質感卡片和特效樣式 */
+
+/* 玻璃卡片樣式增强 */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.shadow-3xl {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3),
+              0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* 改进后的卡片点击特效，更加平滑 */
+@keyframes cardHit {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.97) rotate(-1deg); }
+  50% { transform: scale(0.99) rotate(1deg); }
+  70% { transform: scale(0.97) rotate(-0.5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.card-hit {
+  animation: cardHit 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+}
+
+/* 更华丽的粒子飞散特效 */
+@keyframes particleFly {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+    scale: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: translate(var(--end-x, 50px), var(--end-y, 50px));
+    opacity: 0;
+    scale: 0.2;
+    filter: blur(2px);
+  }
+}
+
+/* 增加卡片遮挡效果，让当前卡片更加突出 */
+.card-wrapper {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  backdrop-filter: blur(5px);
+}
+
+.energy-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  box-shadow: 0 0 10px currentColor;
+}
+
+/* 添加陰影發光效果 */
+.shadow-glow-sm {
+  box-shadow: 0 0 10px rgba(255, 200, 0, 0.5);
+}
+
+/* 更新卡片容器樣式 */
+.card-wrapper {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* 更华丽的粒子飞散特效 */
+@keyframes particleFly {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+    scale: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: translate(var(--end-x, 50px), var(--end-y, 50px));
+    opacity: 0;
+    scale: 0.2;
+    filter: blur(2px);
+  }
+}
+
+.energy-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  box-shadow: 0 0 15px currentColor;
+}
+
+/* 新增卡片闪光特效 */
+.card-shine-effect {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 25%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 75%,
+    transparent 100%
+  ) !important;
+  opacity: 0 !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.8s ease, opacity 0.3s ease !important;
+  pointer-events: none !important;
+  z-index: 5 !important;
+  transform-style: flat !important;
+  backface-visibility: hidden !important;
+  transform-origin: center center !important;
+}
+
+.group:hover .card-shine-effect {
+  opacity: 1 !important;
+  transform: translateX(100%) !important;
+  animation: none !important;
+}
+
+/* 添加卡片闪光动画 */
+@keyframes shine-effect {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.card-shine-animation {
+  animation: shine-effect 2s forwards ease-in-out !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+}
+
+/* 全新的卡片闪色效果 - 独立实现，避免冲突 */
+.shine-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0) 35%, 
+    rgba(255, 255, 255, 0.9) 50%, 
+    rgba(255, 255, 255, 0) 65%, 
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: overlay;
+  animation: none; /* 默认不播放动画，由JavaScript控制 */
+}
+
+@keyframes shine-move {
+  0% {
+    transform: translateX(-150%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+}
+
+/* 添加动画类，通过JavaScript控制触发 */
+.shine-animate {
+  animation: shine-move 2s ease-in-out forwards !important;
+}
+
+/* 闪色延迟类 */
+.shine-delay-1 { animation-delay: 0.2s; }
+.shine-delay-2 { animation-delay: 0.6s; }
+.shine-delay-3 { animation-delay: 1.0s; }
+.shine-delay-4 { animation-delay: 1.4s; }
+.shine-delay-5 { animation-delay: 1.8s; }
+.shine-delay-6 { animation-delay: 2.2s; }
+
+/* 在鼠标悬停时重新触发动画 */
+.group:hover .shine-overlay {
+  animation: shine-move 1.5s ease-in-out 1;
+  animation-fill-mode: both;
+}
+
+/* 新增纯银白色闪亮特效 - 简化版 */
+.card-silver-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0) 80%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  z-index: 100;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  filter: brightness(1.5);
+  border-radius: inherit;
+}
+
+/* 悬停时的闪光效果更加明显 */
+.group:hover .card-silver-shine {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0) 80%,
+    transparent 100%
+  );
+  filter: brightness(2) contrast(1.2);
+  mix-blend-mode: screen;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes silver-shine {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+.card-silver-shine-animate {
+  animation: silver-shine 1.5s ease-out forwards;
+}
+
+/* 鼠标悬停时触发闪光效果 */
+.group:hover .card-silver-shine {
+  animation: none;
+}
+
+/* 为悬停创建单独的动画，确保可以在每次悬停时触发 */
+@keyframes silver-shine-hover {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+/* 调整悬停时的动画速度，使之更明显 */
+.group:hover .card-silver-shine {
+  animation: silver-shine-hover 1s ease-out forwards !important;
+}
+
+/* 新增卡片闪光特效 - 解决方案查看时的样式 */
+.solution-active .card-silver-shine,
+.view-solution .card-silver-shine {
+  display: none !important;
+  opacity: 0 !important;
+  animation: none !important;
+}
+
+/* 禁止卡片自动翻转 */
+.card-wrapper,
+.motion-div,
+[class*="card-"] {
+  transform: rotateY(0deg) !important;
+  transform-style: preserve-3d !important;
+  backface-visibility: hidden !important;
+  perspective: 1000px !important;
+  transition: transform 0.3s ease-out, scale 0.3s ease-out !important;
+}
+
+/* 当设置rotate时特别处理 */
+.rotating-disabled * {
+  transform: translate3d(0, 0, 0) !important;
+  transition: none !important;
+}

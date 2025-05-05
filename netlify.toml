@@ -1,0 +1,33 @@
+[build]
+  base = ""
+  publish = ""
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[context.production]
+  command = "npm run build"
+
+[context.production.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/zh-TW/*"
+  to = "/zh-TW/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/zh-TW"
+  to = "/zh-TW/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/"
+  to = "/zh-TW"
+  status = 301
+
+[[redirects]]
+  from = "/zh-TW/_next/*"
+  to = "/_next/*"
+  status = 200
