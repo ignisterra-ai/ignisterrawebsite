@@ -6,9 +6,11 @@ import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import SEO from '../components/SEO';
 import { WebpageJsonLd, BreadcrumbJsonLd } from '../components/JsonLd';
+import { useTranslation } from 'react-i18next';
 
 const PrismTravel = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const title = "AI旅遊解決方案 | Prism Travel - 晟垚智能科技";
   const description = "Prism Travel - 個人專屬旅遊規劃師。如指紋般獨一無二的旅程體驗。";
   
@@ -36,13 +38,13 @@ const PrismTravel = () => {
         {/* 頂部導航返回按鈕 */}
         <div className="fixed top-8 left-8 z-50">
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/#work')}
             className="flex items-center space-x-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full shadow-lg border border-white/30 transition-all hover:bg-white/30"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
-            <span>返回首頁</span>
+            <span>{t('back')}</span>
           </button>
         </div>
 
@@ -69,7 +71,7 @@ const PrismTravel = () => {
             </div>
             
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              AI旅遊解決方案 | Prism Travel
+              Prism Travel | AI Travel Solution
             </h1>
             
             <div className="w-16 h-1 bg-white/50 mx-auto mb-8"></div>

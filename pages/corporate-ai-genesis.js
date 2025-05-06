@@ -38,13 +38,13 @@ const CorporateAIGenesis = () => {
         {/* 頂部導航返回按鈕 */}
         <div className="fixed top-8 left-8 z-50">
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/#work')}
             className="flex items-center space-x-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full shadow-lg border border-white/30 transition-all hover:bg-white/30"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
-            <span>返回首頁</span>
+            <span>{t('back')}</span>
           </button>
         </div>
 
@@ -71,7 +71,7 @@ const CorporateAIGenesis = () => {
             </div>
             
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              {t('corporateAI')} | Corporate AI Genesis
+              Corporate AI Genesis | 企業創世AI
             </h1>
             
             <div className="w-16 h-1 bg-white/50 mx-auto mb-8"></div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { X } from 'lucide-react';
+import { X, ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
@@ -212,8 +212,12 @@ const Header = () => {
         <nav className="text-center">
           <ul className="space-y-12 md:space-y-16">
             <li className="transform transition-transform hover:translate-x-2">
-              <Link href="/#work" className="text-white text-4xl md:text-6xl font-bold hover:text-gray-200 transition-colors tracking-wide" onClick={() => setMenuOpen(false)}>
-                {t('Product')}
+              <Link 
+                href="/#work" 
+                className="flex items-center text-gray-600 hover:text-gray-900"
+              >
+                <ArrowLeft className="h-5 w-5 mr-2" />
+                {t('back')}
               </Link>
             </li>
             <li className="transform transition-transform hover:translate-x-2">

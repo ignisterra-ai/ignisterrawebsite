@@ -6,10 +6,12 @@ import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import SEO from '../components/SEO';
 import { WebpageJsonLd, BreadcrumbJsonLd } from '../components/JsonLd';
+import { useTranslation } from 'react-i18next';
 
 // 确保使用Next.js的路由进行导航
 const BlazeCipher = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const title = "智光探命 | BlazeCipher - 晟垚智能科技";
   const description = "BlazeCipher - AI賦能的現代命理解決方案。傳統智慧與現代科技的融合。";
   
@@ -37,13 +39,13 @@ const BlazeCipher = () => {
         {/* 頂部導航返回按鈕 */}
         <div className="fixed top-8 left-8 z-50">
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/#work')}
             className="flex items-center space-x-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full shadow-lg border border-white/30 transition-all hover:bg-white/30"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
-            <span>返回首頁</span>
+            <span>{t('back')}</span>
           </button>
         </div>
 
@@ -70,7 +72,7 @@ const BlazeCipher = () => {
             </div>
             
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              智光探命 | BlazeCipher
+              BlazeCipher | 智光探命
             </h1>
             
             <div className="w-16 h-1 bg-white/50 mx-auto mb-8"></div>
