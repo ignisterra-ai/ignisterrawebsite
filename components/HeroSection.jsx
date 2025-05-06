@@ -207,9 +207,25 @@ const HeroSection = () => {
     };
   }, []);
   
-  // 获取适合当前语言的副标题
+  // 获取适合当前语言的标题和副标题
+  const getTitle = () => {
+    if (i18n.language === 'en') {
+      return 'Seamless AI Integration';
+    } else if (i18n.language === 'zh-TW') {
+      return '一秒上手的智能體驗';
+    } else {
+      return '一秒上手的智能体验';
+    }
+  };
+
   const getSubtitle = () => {
-    return t('heroSubtitle');
+    if (i18n.language === 'en') {
+      return "Plug and play intelligence—instantly elevating your team's capabilities";
+    } else if (i18n.language === 'zh-TW') {
+      return '不用學，開箱即用，讓AI成為團隊的超能力';
+    } else {
+      return '不用学，开箱即用，让AI成为团队的超能力';
+    }
   };
   
   return (
@@ -284,11 +300,11 @@ const HeroSection = () => {
           style={{ 
             letterSpacing: '-0.01em',
             overflow: 'visible',
-            paddingRight: '5px', // 确保文字不被遮挡
-            paddingBottom: '10px' // 增加底部填充，确保字母g等不被裁剪
+            paddingRight: '5px',
+            paddingBottom: '10px'
           }}
         >
-          {i18n.language === 'en' ? 'Seamless AI Integration' : t('heroTitle')}
+          {getTitle()}
         </h1>
         
         <p 
