@@ -91,9 +91,12 @@ function MyApp({ Component, pageProps }) {
           height: '100vh',
           pointerEvents: 'none',
           zIndex: -1,
-          background: 'radial-gradient(circle at center, rgba(255, 200, 140, 1) 0%, rgba(255, 243, 224, 0.97) 10%, rgba(255, 226, 186, 0.93) 20%, rgba(255, 204, 136, 0.88) 30%, rgba(255, 180, 90, 0.77) 45%, rgba(250, 160, 70, 0.61) 60%, rgba(0, 0, 0, 0) 80%)',
-          filter: 'blur(30px)',
-          opacity: 0.94
+          background: isMobile 
+            ? 'radial-gradient(circle at center, rgba(255, 200, 140, 1) 0%, rgba(255, 243, 224, 0.97) 10%, rgba(255, 226, 186, 0.93) 20%, rgba(255, 204, 136, 0.88) 30%, rgba(255, 180, 90, 0.77) 45%, rgba(250, 160, 70, 0.61) 60%, rgba(0, 0, 0, 0) 80%)'
+            : 'radial-gradient(circle at center, rgba(255, 160, 80, 1) 0%, rgba(255, 160, 80, 0.9) 15%, rgba(255, 160, 80, 0.7) 30%, rgba(255, 160, 80, 0.5) 45%, rgba(255, 160, 80, 0.3) 60%, rgba(255, 160, 80, 0.15) 75%, rgba(255, 160, 80, 0.05) 100%)',
+          filter: isMobile ? 'blur(30px)' : 'blur(35px)',
+          opacity: isMobile ? 0.94 : 0.95,
+          backgroundColor: 'rgba(255, 248, 240, 0.2)'  // 添加一个非常淡的暖色底色
         }}
         aria-hidden="true"
       />
