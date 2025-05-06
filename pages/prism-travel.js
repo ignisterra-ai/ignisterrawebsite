@@ -51,9 +51,6 @@ const PrismTravel = () => {
           {/* 背景模糊效果 */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-teal-700/20"></div>
-            <div className="absolute top-1/4 -left-40 w-80 h-80 bg-teal-300/40 rounded-full filter blur-[100px]"></div>
-            <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-green-400/40 rounded-full filter blur-[100px]"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/20 rounded-full filter blur-[80px]"></div>
           </div>
 
           {/* 霧化內容框 */}
@@ -81,16 +78,11 @@ const PrismTravel = () => {
               建構中，敬請期待
             </p>
             
-            <motion.div 
-              initial={{ opacity: 0.5 }}
-              animate={{ opacity: [0.5, 0.8, 0.5] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="flex items-center justify-center space-x-2 text-white/80"
-            >
+            <div className="flex items-center justify-center space-x-2 text-white/80">
               <span className="w-2 h-2 bg-white rounded-full"></span>
               <span className="w-2 h-2 bg-white rounded-full"></span>
               <span className="w-2 h-2 bg-white rounded-full"></span>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>

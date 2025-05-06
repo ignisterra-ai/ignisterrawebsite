@@ -140,12 +140,6 @@ const PainPointCards = () => {
     if (activeCard === index) {
       // 显示解决方案
       setShowSolution(true);
-      
-      // 6秒后重置状态
-      setTimeout(() => {
-        setShowSolution(false);
-        setActiveCard(null);
-      }, 6000);
     } else {
       setActiveCard(index);
       setShowSolution(false);
@@ -201,18 +195,17 @@ const PainPointCards = () => {
           activeCardElement.classList.add('view-solution');
           activeCardElement.classList.add('solution-active');
         }
-        
-        // 6秒后重置状态
-        setTimeout(() => {
-          setShowSolution(false);
-          setActiveCard(null);
-        }, 6000);
       }
     } else {
       // 如果未激活，激活卡片
       setActiveCard(centerIndex);
       setShowSolution(false);
     }
+  };
+
+  // 返回到问题描述
+  const handleBackToProblem = (index) => {
+    setShowSolution(false);
   };
 
   // 切换到下一张或上一张卡片
@@ -236,32 +229,39 @@ const PainPointCards = () => {
     }, 500);
   };
 
-  // 创建能量粒子效果
+  // 创建能量粒子效果 - 修改粒子效果以解决白点问题
   const createEnergyParticles = (x, y) => {
     const container = document.querySelector('.pain-point-container');
     if (!container) return;
     
-    // 创建多个粒子
-    for (let i = 0; i < 30; i++) {
+    // 创建少量粒子，避免中心出现白点
+    for (let i = 0; i < 15; i++) {
       const particle = document.createElement('div');
       particle.classList.add('energy-particle');
       
-      // 随机粒子颜色
-      const colors = ['rgba(255, 255, 255, 0.9)', 'rgba(200, 255, 255, 0.8)', 'rgba(180, 220, 255, 0.8)'];
+      // 使用更深的半透明颜色
+      const colors = [
+        'rgba(220, 180, 120, 0.6)', 
+        'rgba(200, 150, 100, 0.6)', 
+        'rgba(180, 120, 80, 0.6)'
+      ];
       particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
       
-      // 设置粒子位置和大小
-      particle.style.left = `${x}px`;
-      particle.style.top = `${y}px`;
+      // 设置粒子位置，避免在正中央位置
+      const offsetX = (Math.random() - 0.5) * 20;
+      const offsetY = (Math.random() - 0.5) * 20;
+      particle.style.left = `${x + offsetX}px`;
+      particle.style.top = `${y + offsetY}px`;
       
-      const size = 5 + Math.random() * 15;
+      // 粒子大小较小
+      const size = 3 + Math.random() * 8;
       particle.style.width = `${size}px`;
       particle.style.height = `${size}px`;
       
       // 设置粒子动画
       const angle = Math.random() * Math.PI * 2;
-      const distance = 30 + Math.random() * 120;
-      const duration = 0.5 + Math.random() * 1;
+      const distance = 40 + Math.random() * 80;
+      const duration = 0.4 + Math.random() * 0.6;
       
       particle.style.transform = `translate(0, 0)`;
       particle.style.animation = `particleFly ${duration}s ease-out forwards`;
@@ -456,7 +456,11 @@ const PainPointCards = () => {
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                          className="solution-content"
+                          className="solution-content cursor-pointer h-full flex flex-col"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleBackToProblem(index);
+                          }}
                         >
                           <div className="flex items-center mb-5">
                             <div 
@@ -470,15 +474,26 @@ const PainPointCards = () => {
                               style={{ color: `rgb(251, 191, 36)` }}
                             >{t('solutionTitle')}</h4>
                           </div>
-                          <p className="text-white text-lg leading-relaxed">{point.solution}</p>
+                          
+                          <div className="flex-grow">
+                            <p className="text-white text-lg leading-relaxed">{point.solution}</p>
+                          </div>
+                          
+                          {/* 返回提示 */}
+                          <div className="text-center mt-auto pt-4 text-amber-300/70 text-sm">
+                            {t('tapToReturn') || "点击返回"}
+                          </div>
                         </motion.div>
                       ) : (
-                        <div className="problem-content">
-                          <p className="text-white/90 text-lg leading-relaxed mb-6">{point.description}</p>
+                        <div className="problem-content flex flex-col h-full">
+                          <div className="flex-grow">
+                            <p className="text-white/90 text-lg leading-relaxed">{point.description}</p>
+                          </div>
+                          
                           {offset === 0 && (
-                            <div className="text-center mt-auto w-full">
+                            <div className="text-center mt-auto pt-4 w-full">
                               <button 
-                                className="inline-block mt-2 text-gray-800 font-semibold bg-amber-400 border border-amber-500 rounded-full px-8 py-3 hover:bg-amber-300 transition-all text-lg shadow-lg"
+                                className="inline-block text-gray-800 font-semibold bg-amber-400 border border-amber-500 rounded-full px-8 py-3 hover:bg-amber-300 transition-all text-lg shadow-lg"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   setActiveCard(index);
@@ -498,12 +513,6 @@ const PainPointCards = () => {
                                     currentCard.classList.add('view-solution');
                                     currentCard.classList.add('solution-active');
                                   }
-                                  
-                                  // 6秒后重置状态
-                                  setTimeout(() => {
-                                    setShowSolution(false);
-                                    setActiveCard(null);
-                                  }, 6000);
                                 }}
                               >
                                 {t('viewSolution')}
@@ -516,7 +525,7 @@ const PainPointCards = () => {
                     
                     {/* 卡片底部 */}
                     <div className="py-5 px-5 mt-auto border-t border-white/20 flex justify-between items-center">
-                      <div className="text-white/90 text-sm">{t('brandName')} {t('companyName')}</div>
+                      <div className="text-white/90 text-sm">Ignis Terra AI Solution | 晟垚智能科技</div>
                       <div className="flex items-center">
                         <svg className="w-6 h-6 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
@@ -572,6 +581,25 @@ const PainPointCards = () => {
           />
         ))}
       </div>
+      
+      {/* 添加粒子动画CSS */}
+      <style jsx>{`
+        @keyframes particleFly {
+          to {
+            transform: translate(var(--end-x), var(--end-y));
+            opacity: 0;
+            scale: 0.3;
+          }
+        }
+        
+        .energy-particle {
+          position: absolute;
+          border-radius: 50%;
+          z-index: 60;
+          opacity: 0.7;
+          pointer-events: none;
+        }
+      `}</style>
     </div>
   );
 };

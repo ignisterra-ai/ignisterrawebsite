@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import throttle from 'lodash.throttle';
 import { ArrowRight } from 'lucide-react';
 import PainPointCards from './PainPointCards';
+import PainPointCardsSwipeable from './PainPointCardsSwipeable';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 
 const Sections = () => {
@@ -16,6 +18,21 @@ const Sections = () => {
   const [cardsAnimated, setCardsAnimated] = useState(false);
   const [animationSequence, setAnimationSequence] = useState(Array(6).fill(false));
   const { t, i18n } = useTranslation('common');
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // 检测是否为移动设备
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
   
   // 优化滚动动画监听
   useEffect(() => {
@@ -130,8 +147,12 @@ const Sections = () => {
             </p>
           </div>
           
-          {/* 痛点卡片区域 */}
-          <PainPointCards />
+          {/* 根据设备类型选择卡片组件 */}
+          {isMobile ? (
+            <PainPointCardsSwipeable />
+          ) : (
+            <PainPointCards />
+          )}
         </div>
       </section>
 
@@ -145,10 +166,10 @@ const Sections = () => {
               boxShadow: '0 8px 32px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.4), inset 0 0 20px rgba(255,255,255,0.1)'
             }}
           >
-            {/* 添加光晕背景效果 */}
-            <div className="absolute top-1/4 -left-40 w-80 h-80 bg-blue-300/20 rounded-full filter blur-[100px] -z-5"></div>
-            <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-purple-300/20 rounded-full filter blur-[100px] -z-5"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-rose-200/10 rounded-full filter blur-[80px] -z-5"></div>
+            {/* 添加光晕背景效果 - 降低亮度 */}
+            <div className="absolute top-1/4 -left-40 w-80 h-80 bg-blue-300/3 rounded-full filter blur-[100px] -z-10"></div>
+            <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-purple-300/3 rounded-full filter blur-[100px] -z-10"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-rose-200/2 rounded-full filter blur-[80px] -z-10"></div>
             
             {/* 添加背景渐变效果 */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 via-neutral-50/60 to-rose-50/60 -z-10"></div>
@@ -157,8 +178,8 @@ const Sections = () => {
               <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title" style={{ lineHeight: 1.2 }}>
                 {t('beyondTools')}
               </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-tight py-1">
-                {t('solutionDescription')}
+              <p className="text-xl text-neutral-600 max-w-3xl mx-auto mt-6">
+                {`${t('brandName')} ${t('solutionDescription')}`}
               </p>
             </div>
             
@@ -322,7 +343,7 @@ const Sections = () => {
               {t('fourProductLines')}
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-tight py-1">
-              {t('productLinesDescription')}
+              {`${t('brandName')} ${t('productLinesDescription')}`}
             </p>
           </div>
           
@@ -337,9 +358,9 @@ const Sections = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-amber-800 to-amber-950 -z-10"></div>
             
             {/* 调整光晕效果 - 增强中心点光晕 */}
-            <div className="absolute top-1/4 -left-40 w-80 h-80 rounded-full filter blur-[100px] opacity-50 -z-5" style={{ backgroundColor: 'rgb(217, 119, 6)' }}></div>
-            <div className="absolute bottom-1/4 -right-40 w-80 h-80 rounded-full filter blur-[100px] opacity-50 -z-5" style={{ backgroundColor: 'rgb(217, 119, 6)' }}></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full filter blur-[80px] opacity-50 -z-5" style={{ backgroundColor: 'rgb(217, 119, 6)' }}></div>
+            <div className="absolute top-1/4 -left-40 w-80 h-80 rounded-full filter blur-[90px] opacity-30 -z-5" style={{ backgroundColor: 'rgb(217, 119, 6)' }}></div>
+            <div className="absolute bottom-1/4 -right-40 w-80 h-80 rounded-full filter blur-[90px] opacity-30 -z-5" style={{ backgroundColor: 'rgb(217, 119, 6)' }}></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full filter blur-[70px] opacity-30 -z-5" style={{ backgroundColor: 'rgb(217, 119, 6)' }}></div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 relative z-10">
               {/* 創世AI */}
@@ -379,7 +400,7 @@ const Sections = () => {
                 </ul>
                 <Link href={`/${i18n.language}/corporate-ai-genesis`} className="w-full py-2 mt-2 block text-gray-800 bg-white/90 border border-white/40 rounded-2xl hover:bg-white transition-all shadow-glow-sm relative overflow-hidden group">
                   <span className="relative z-10 flex items-center justify-center">
-                    {t('learnMore')} <span className="font-bold ml-1">{t('corporateAI')}</span> <span className="ml-1">{t('solution')}</span>
+                    {t('viewSolution')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Link>
@@ -422,7 +443,7 @@ const Sections = () => {
                 </ul>
                 <Link href={`/${i18n.language}/prism-buy-ai`} className="w-full py-2 mt-2 block text-gray-800 bg-white/90 border border-white/40 rounded-2xl hover:bg-white transition-all shadow-glow-sm relative overflow-hidden group">
                   <span className="relative z-10 flex items-center justify-center">
-                    {t('learnMore')} <span className="font-bold ml-1">{t('prismBuyAI')}</span> <span className="ml-1">{t('solution')}</span>
+                    {t('viewSolution')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Link>
@@ -465,7 +486,7 @@ const Sections = () => {
                 </ul>
                 <Link href={`/${i18n.language}/blazecipher`} className="w-full py-2 mt-2 block text-gray-800 bg-white/90 border border-white/40 rounded-2xl hover:bg-white transition-all shadow-glow-sm relative overflow-hidden group">
                   <span className="relative z-10 flex items-center justify-center">
-                    {t('learnMore')} <span className="font-bold ml-1">{t('blazeCipher')}</span> <span className="ml-1">{t('solution')}</span>
+                    {t('viewSolution')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Link>
@@ -508,7 +529,7 @@ const Sections = () => {
                 </ul>
                 <Link href={`/${i18n.language}/prism-travel`} className="w-full py-2 mt-2 block text-gray-800 bg-white/90 border border-white/40 rounded-2xl hover:bg-white transition-all shadow-glow-sm relative overflow-hidden group">
                   <span className="relative z-10 flex items-center justify-center">
-                    {t('learnMore')} <span className="font-bold ml-1">{t('prismTravel')}</span> <span className="ml-1">{t('solution')}</span>
+                    {t('viewSolution')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Link>
@@ -526,7 +547,7 @@ const Sections = () => {
               {t('intelligentExperienceTitle')}
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-tight py-1">
-              {t('intelligentExperienceDesc')}
+              {`${t('brandName')} ${t('intelligentExperienceDesc')}`}
             </p>
           </div>
           
@@ -590,12 +611,15 @@ const Sections = () => {
               {/* 漏斗图 */}
               <div className="md:w-1/2 flex justify-center">
                 <div className="w-full max-w-sm mx-auto transition-transform duration-300">
-                  <img 
-                    src="/images/ai-implementation-funnel.png" 
-                    alt="AI Implementation Funnel" 
+                  <Image 
+                    src="/images/ai-implementation-funnel-no-text.png" 
+                    alt="AI Implementation Process" 
+                    width={1000}
+                    height={413}
+                    priority
                     className="w-full h-auto object-contain"
                     style={{ 
-                      imageRendering: 'high-quality'
+                      maxWidth: '100%'
                     }}
                   />
                 </div>
@@ -724,7 +748,7 @@ const Sections = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-xl">Kelly Liu</h3>
-                  <p className="text-gray-600">Founder & Chief Innovation Officer | Cross-national Business Development Expert</p>
+                  <p className="text-gray-600">{t('founderTitle')}</p>
                 </div>
               </div>
             
@@ -824,9 +848,9 @@ const Sections = () => {
       {/* ===== 联系我们區塊 ===== */}
       <section className="py-24 bg-transparent relative overflow-hidden" id="contact">
         {/* 添加光晕背景效果 */}
-        <div className="absolute top-1/4 -left-40 w-80 h-80 bg-blue-300/20 rounded-full filter blur-[100px]"></div>
-        <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-purple-300/20 rounded-full filter blur-[100px]"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-rose-200/10 rounded-full filter blur-[80px]"></div>
+        <div className="absolute top-1/4 -left-40 w-80 h-80 bg-blue-300/5 rounded-full filter blur-[100px] -z-10"></div>
+        <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-purple-300/5 rounded-full filter blur-[100px] -z-10"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-rose-200/3 rounded-full filter blur-[80px] -z-10"></div>
         
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="backdrop-blur-md bg-white/20 rounded-3xl p-8 md:p-12 shadow-lg border border-white/30 relative overflow-hidden" 

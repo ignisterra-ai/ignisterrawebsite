@@ -75,10 +75,48 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', 'Microsoft JhengHei', 'Open Sans', sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
+  position: relative;
+  touch-action: auto;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* 确保页面可以正常滚动 */
+#__next, main {
+  overflow-y: visible;
+  overflow-x: hidden;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  position: relative;
+  touch-action: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 全局滚动修复 */
+body, html {
+  overscroll-behavior-y: none;
+  touch-action: auto;
+}
+
+/* 修复区块滚动 */
+.content-container {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+/* 移动端内容容器修复 */
+@media (max-width: 768px) {
+  .content-container {
+    margin-top: -10vh;
+  }
 }
 
 /* 圖片透明度修復 */
@@ -116,115 +154,7 @@ img, span[style*="box-sizing: border-box"] {
   background: none !important;
 }
 
-/* ===== 优化背景光晕效果 ===== */
-.background-glow {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  transform: none !important;
-  /* 改进橙金色系光暈效果 - 更加精细的渐变层次 */
-  background: 
-    /* 中心強光 - 更精细的橙金色核心 */
-    radial-gradient(
-      circle at 50% 45%,
-      rgba(255, 255, 220, 0.98) 0%,
-      rgba(255, 245, 200, 0.9) 1.5%,
-      rgba(255, 225, 150, 0.8) 3%,
-      rgba(255, 200, 120, 0.75) 4.5%,
-      rgba(255, 170, 70, 0.65) 6.5%,
-      rgba(255, 140, 0, 0.45) 10%,
-      rgba(230, 120, 0, 0.25) 18%,
-      rgba(0, 0, 0, 0) 35%
-    ),
-    /* 橙金色浅层光晕 - 增強亮度与穿透力 */
-    radial-gradient(
-      circle at 45% 40%,
-      rgba(255, 190, 60, 0.3) 0%,
-      rgba(255, 170, 40, 0.25) 15%,
-      rgba(255, 140, 0, 0.18) 30%,
-      rgba(255, 140, 0, 0.1) 50%,
-      rgba(255, 140, 0, 0) 75%
-    ),
-    /* 深层金黃光暈 - 提升层次感 */
-    radial-gradient(
-      circle at 55% 55%,
-      rgba(255, 215, 0, 0.25) 0%,
-      rgba(255, 215, 0, 0.2) 20%,
-      rgba(255, 215, 0, 0.15) 40%,
-      rgba(255, 215, 0, 0.08) 60%,
-      rgba(255, 215, 0, 0) 80%
-    ),
-    /* 温暖红褐色点缀 - 丰富层次感 */
-    radial-gradient(
-      circle at 52% 58%,
-      rgba(200, 90, 0, 0.15) 0%,
-      rgba(180, 80, 0, 0.1) 25%,
-      rgba(180, 80, 0, 0.07) 45%,
-      rgba(180, 80, 0, 0.03) 65%,
-      rgba(180, 80, 0, 0) 85%
-    ),
-    /* 增加细腻深橙色光晕 - 增加深度 */
-    radial-gradient(
-      circle at 46% 44%,
-      rgba(160, 70, 0, 0.12) 0%,
-      rgba(160, 70, 0, 0.15) 35%,
-      rgba(160, 70, 0, 0.08) 65%,
-      rgba(160, 70, 0, 0.04) 85%,
-      rgba(160, 70, 0, 0) 100%
-    ),
-    /* 更广范围的温暖底层光晕 - 扩大影响范围 */
-    radial-gradient(
-      circle at 54% 52%,
-      rgba(220, 120, 20, 0.06) 0%,
-      rgba(200, 100, 0, 0.12) 40%,
-      rgba(200, 100, 0, 0.06) 70%,
-      rgba(200, 100, 0, 0) 100%
-    ) !important;
-  mix-blend-mode: screen !important;
-  pointer-events: none !important;
-  filter: blur(65px) contrast(1.15) saturate(1.2) !important;
-  opacity: var(--glow-opacity, 0.85) !important;
-  z-index: -1 !important;
-  will-change: filter, opacity, background-position !important;
-  -webkit-backface-visibility: hidden !important;
-  backface-visibility: hidden !important;
-  isolation: isolate !important;
-  display: block !important;
-  visibility: visible !important;
-  animation: glow-breath 15s infinite alternate ease-in-out !important;
-  transition: filter 0.5s ease-out !important;
-}
-
-/* 改进呼吸动画效果 - 更自然的橙金色系光晕变化 */
-@keyframes glow-breath {
-  0% {
-    filter: blur(65px) contrast(1.1) saturate(1.0) brightness(0.95) !important;
-    opacity: 0.85 !important;
-    transform: translate(0, 0) scale(1.01) rotate(0deg) !important;
-  }
-  25% {
-    filter: blur(68px) contrast(1.15) saturate(1.05) brightness(0.97) !important;
-    opacity: 0.88 !important;
-    transform: translate(0, 0) scale(1.03) rotate(0.2deg) !important;
-  }
-  50% {
-    filter: blur(72px) contrast(1.2) saturate(1.1) brightness(1.0) !important;
-    opacity: 0.92 !important;
-    transform: translate(0, 0) scale(1.04) rotate(0.5deg) !important;
-  }
-  75% {
-    filter: blur(75px) contrast(1.25) saturate(1.15) brightness(1.03) !important;
-    opacity: 0.95 !important;
-    transform: translate(0, 0) scale(1.05) rotate(0.3deg) !important;
-  }
-  100% {
-    filter: blur(70px) contrast(1.2) saturate(1.1) brightness(0.98) !important;
-    opacity: 0.9 !important;
-    transform: translate(0, 0) scale(1.03) rotate(0.1deg) !important;
-  }
-}
+/* 光晕样式已移至全局App组件内联样式中，此处移除 */
 
 @layer components {
   /* 按鈕樣式 */
@@ -264,22 +194,20 @@ img, span[style*="box-sizing: border-box"] {
   /* 标题文字的特殊渐变效果 */
   .gradient-text-title {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(90deg, 
-      #0a1f5c 0%, 
-      #0c2a7a 15%, 
-      #243c8c 30%, 
-      #4a2c5a 50%, 
-      #6a1a2a 70%,
-      #8a0000 85%,
-      #a03300 100%
+    background-image: linear-gradient(135deg, 
+      rgba(0, 35, 102, 0.95) 0%, 
+      rgba(50, 80, 170, 0.95) 25%, 
+      rgba(139, 0, 0, 0.95) 50%,
+      rgba(50, 80, 170, 0.95) 75%,
+      rgba(0, 35, 102, 0.95) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     transition: all 0.3s ease;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    animation: subtle-title-shift 4s infinite alternate ease-in-out;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     background-size: 200% 100%;
+    animation: title-gradient-shift 3s linear infinite;
   }
   
   /* 新增漸變按鈕樣式 */
@@ -589,11 +517,6 @@ img, span[style*="box-sizing: border-box"] {
   .hand-left, .hand-right {
     transform: scale(0.9);
   }
-  
-  /* 優化 1200px 及以下屏幕的光暈效果 */
-  .background-glow {
-    filter: blur(60px) contrast(1.1) saturate(1.1) !important;
-  }
 }
 
 @media (max-width: 992px) {
@@ -624,30 +547,28 @@ img, span[style*="box-sizing: border-box"] {
   .hand-right img {
     left: 5% !important;
   }
-  
-  /* 小屏幕上优化光晕效果 */
-  .background-glow {
-    filter: blur(55px) contrast(1.05) saturate(1.05) !important;
-  }
 }
 
 @media (max-width: 576px) {
   .hand-left, .hand-right {
-    transform: scale(0.75);
+    transform: scale(0.65);
   }
   
   /* 在最小屏幕上进一步减少间距 */
   .hand-left img {
     right: 0% !important;
+    top: 40% !important;
   }
   
   .hand-right img {
     left: 0% !important;
+    top: 40% !important;
   }
   
-  /* 最小屏幕简化光晕效果以提高性能 */
-  .background-glow {
-    filter: blur(50px) contrast(1) saturate(1) !important;
+  /* 确保手机版可以滚动 */
+  .gravity-field {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -1134,4 +1055,14 @@ img, span[style*="box-sizing: border-box"] {
 .rotating-disabled * {
   transform: translate3d(0, 0, 0) !important;
   transition: none !important;
+}
+
+/* 标题渐变动画 */
+@keyframes title-gradient-shift {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: -100% 50%;
+  }
 }

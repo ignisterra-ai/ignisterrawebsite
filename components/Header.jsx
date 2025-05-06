@@ -8,13 +8,37 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
   const { t } = useTranslation('common');
+  
+  // 检测设备是否为移动设备
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // 控制滚动位置
   useEffect(() => {
     const handleScroll = () => {
-      setScrollPosition(window.scrollY);
+      const currentPosition = window.scrollY;
+      setScrollPosition(currentPosition);
+      
+      // 检测滚动状态
+      if (currentPosition > 10) {
+        setIsScrolling(true);
+      } else {
+        // 给一个短暂的延迟来防止频繁切换
+        setTimeout(() => {
+          setIsScrolling(false);
+        }, 300);
+      }
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -55,15 +79,15 @@ const Header = () => {
       {/* 品牌标志 - 左上角 */}
       <div className="absolute top-3 left-4 md:top-6 md:left-6 flex items-center">
         <span className="text-white font-bold text-lg md:text-2xl" style={brandNameStyle}>
-          Ignis Terra AI Solution
+          {t('brandName')}
         </span>
       </div>
 
       {/* 语言切换按钮 - 确保z-index高于菜单 */}
       <div 
-        className={`fixed top-4 right-16 md:top-7 md:right-20 z-[60] cursor-pointer transition-opacity duration-300 ${
-          scrollPosition > 100 && !menuOpen ? 'opacity-70 hover:opacity-100' : 'opacity-100'
-        }`}
+        className={`fixed top-5 right-16 md:top-7 md:right-20 z-[60] cursor-pointer transition-opacity duration-300 ${
+          (scrollPosition > 100 && !menuOpen) ? 'opacity-70 hover:opacity-100' : 'opacity-100'
+        } ${isMobile && isScrolling && !menuOpen ? 'hidden' : ''}`}
         onClick={(e) => {
           e.stopPropagation();
           setLangMenuOpen(!langMenuOpen);
@@ -81,6 +105,7 @@ const Header = () => {
             strokeWidth="2" 
             strokeLinecap="round" 
             strokeLinejoin="round"
+            className="transform -translate-y-0.5"
           >
             <circle cx="12" cy="12" r="10" />
             <path d="M2 12h20" />
@@ -115,7 +140,7 @@ const Header = () => {
     
       {/* 固定在右上角的汉堡菜单按钮 */}
       <div 
-        className={`fixed top-5 right-6 md:top-8 md:right-8 z-50 cursor-pointer transition-opacity duration-300 ${
+        className={`fixed top-5 right-6 md:top-7 md:right-8 z-50 cursor-pointer transition-opacity duration-300 ${
           scrollPosition > 100 && !menuOpen ? 'opacity-70 hover:opacity-100' : 'opacity-100'
         }`}
         onClick={() => setMenuOpen(true)}
@@ -135,7 +160,7 @@ const Header = () => {
       >
         {/* 关闭按钮 */}
         <button 
-          className="absolute top-6 right-6 md:top-8 md:right-8 text-white hover:text-gray-300 transition-colors"
+          className="absolute top-5 right-6 md:top-7 md:right-8 text-white hover:text-gray-300 transition-colors"
           onClick={() => setMenuOpen(false)}
           aria-label="关闭菜单"
         >
@@ -143,15 +168,45 @@ const Header = () => {
         </button>
         
         {/* 品牌标志 - 左上角 */}
-        <div className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center">
+        <div className="absolute top-5 left-4 md:top-7 md:left-6 flex items-center">
           <span className="text-white font-bold text-lg md:text-2xl" style={{
             ...brandNameStyle,
             color: 'white', 
             textShadow: 'none'
           }}>
-            Ignis Terra AI Solution
+            {t('brandName')}
           </span>
         </div>
+        
+        {/* 移动版语言切换按钮 - 仅在菜单打开时显示 */}
+        {isMobile && (
+          <div 
+            className="absolute top-5 right-16 z-[60] cursor-pointer transition-opacity duration-300"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLangMenuOpen(!langMenuOpen);
+            }}
+          >
+            <div className="w-10 h-10 relative flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                width="24" 
+                height="24" 
+                fill="none" 
+                stroke="white" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                className="transform -translate-y-0.5"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+            </div>
+          </div>
+        )}
         
         {/* 导航菜单项 */}
         <nav className="text-center">

@@ -7,7 +7,7 @@ const CursorEffect = () => {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    // 创建光标元素
+    // 只创建光标元素，不创建任何光晕效果
     const addCursorElements = () => {
       const cursorEl = document.createElement('div');
       cursorEl.classList.add('cursor-effect');
@@ -23,18 +23,16 @@ const CursorEffect = () => {
     
     const { cursorEl, cursorDot } = addCursorElements();
     
-    // 更新光标位置 - 使用更高性能的实现
+    // 仅更新光标位置，不影响其他元素
     const updateCursorPosition = (e) => {
       setPosition({ x: e.clientX, y: e.clientY });
       
-      // 使用transform3d而非left/top，获得更好的性能
+      // 仅设置光标元素位置
       cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
       cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-      
-      // 移除拖尾效果，提高性能
     };
     
-    // 处理鼠标点击 - 添加精致的点击反馈
+    // 处理鼠标点击 - 只影响光标元素
     const handleMouseDown = () => {
       setClicked(true);
       cursorEl.classList.add('active');
@@ -46,7 +44,7 @@ const CursorEffect = () => {
       cursorEl.classList.remove('active');
     };
     
-    // 处理鼠标悬停在链接上 - 更丰富的互动反馈
+    // 处理鼠标悬停在链接上 - 只影响光标和交互元素
     const handleLinkHoverEvents = () => {
       // 获取所有可交互元素
       const interactiveElements = document.querySelectorAll('a, button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"])');

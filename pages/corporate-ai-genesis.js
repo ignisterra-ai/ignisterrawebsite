@@ -4,13 +4,15 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import SEO from '../components/SEO';
 import { WebpageJsonLd, BreadcrumbJsonLd } from '../components/JsonLd';
 
 const CorporateAIGenesis = () => {
   const router = useRouter();
-  const title = "創世AI | Corporate AI Genesis - 晟垚智能科技";
-  const description = "創世AI - 企業的數位智囊團與協作夥伴。系統化知識傳承，客觀決策支持。";
+  const { t } = useTranslation('common');
+  const title = `${t('corporateAI')} | Corporate AI Genesis - ${t('companyName')}`;
+  const description = `${t('corporateAI')} - ${t('corporateAIPosition')}。${t('corporateAIValue')}。`;
   
   return (
     <>
@@ -28,7 +30,7 @@ const CorporateAIGenesis = () => {
         items={[
           { name: '首頁', url: 'https://www.ignisterra.ai' },
           { name: '產品服務', url: 'https://www.ignisterra.ai/products' },
-          { name: '創世AI', url: 'https://www.ignisterra.ai/corporate-ai-genesis' }
+          { name: t('corporateAI'), url: 'https://www.ignisterra.ai/corporate-ai-genesis' }
         ]}
       />
 
@@ -51,9 +53,6 @@ const CorporateAIGenesis = () => {
           {/* 背景模糊效果 */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-blue-700/20"></div>
-            <div className="absolute top-1/4 -left-40 w-80 h-80 bg-blue-300/40 rounded-full filter blur-[100px]"></div>
-            <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-blue-400/40 rounded-full filter blur-[100px]"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/20 rounded-full filter blur-[80px]"></div>
           </div>
 
           {/* 霧化內容框 */}
@@ -72,7 +71,7 @@ const CorporateAIGenesis = () => {
             </div>
             
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              創世AI | Corporate AI Genesis
+              {t('corporateAI')} | Corporate AI Genesis
             </h1>
             
             <div className="w-16 h-1 bg-white/50 mx-auto mb-8"></div>
@@ -81,16 +80,11 @@ const CorporateAIGenesis = () => {
               建構中，敬請期待
             </p>
             
-            <motion.div 
-              initial={{ opacity: 0.5 }}
-              animate={{ opacity: [0.5, 0.8, 0.5] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="flex items-center justify-center space-x-2 text-white/80"
-            >
+            <div className="flex items-center justify-center space-x-2 text-white/80">
               <span className="w-2 h-2 bg-white rounded-full"></span>
               <span className="w-2 h-2 bg-white rounded-full"></span>
               <span className="w-2 h-2 bg-white rounded-full"></span>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>

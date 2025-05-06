@@ -16,8 +16,12 @@
   "commonPainPoints": "Common Enterprise Pain Points",
   "painPointsDescription": "Regardless of industry, businesses face similar management and decision-making challenges",
   
+  "swipeToViewMore": "← Swipe left or right to view more cards →",
+  "scrollToPrevious": "Scroll to previous page",
+  "scrollToNext": "Scroll to next page",
+  
   "beyondTools": "Beyond Tools, Redefining Human-Machine Collaboration",
-  "solutionDescription": "Ignis Terra AI Solution puts people first, making AI an extension of your team's intelligence, integrating into workflows to create real value",
+  "solutionDescription": "puts people first, making AI an extension of your team's intelligence, integrating into workflows to create real value",
   
   "intelligentPartner": "Intelligent Partner",
   "intelligentPartnerDesc": "Not just a cold tool, but an intelligent partner that understands your industry language and business logic - ready to use with zero barriers",

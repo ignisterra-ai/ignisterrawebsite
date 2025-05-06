@@ -13,11 +13,15 @@
   "exploreSolutions": "探索解决方案",
   "companySlogan": "温暖的智能，点燃现实",
   
-  "commonPainPoints": "常见企业痛点",
-  "painPointsDescription": "无论行业如何，企业都面临着相似的管理和决策挑战",
+  "commonPainPoints": "企业常见痛点",
+  "painPointsDescription": "无论什么行业，企业面临着相似的管理与决策挑战",
+  
+  "swipeToViewMore": "← 左右滑动查看更多卡片 →",
+  "scrollToPrevious": "滚动到上一页",
+  "scrollToNext": "滚动到下一页",
   
   "beyondTools": "超越工具，重新定义人机协作",
-  "solutionDescription": "Ignis Terra AI Solution 以人为本，让AI成为团队智慧的延伸，融入工作流程，创造真实价值",
+  "solutionDescription": "以人为本，让AI成为团队智慧的延伸，融入工作流程，创造真实价值",
   
   "intelligentPartner": "智能伙伴",
   "intelligentPartnerDesc": "不只是冰冷的工具，而是理解您行业语言和业务逻辑的智能伙伴 - 零障碍即可使用",
@@ -40,9 +44,9 @@
   "bookDemo": "预约演示以了解更多",
   
   "fourProductLines": "四大产品线：协作式全场景解决方案",
-  "productLinesDescription": "Ignis Terra AI Solution 的四大产品线形成完整智能生态系统，覆盖企业内部、消费决策、生活规划和文化领域，实现全场景智能协作",
+  "productLinesDescription": "的四大产品线形成完整智能生态系统，覆盖企业内部、消费决策、生活规划和文化领域，实现全场景智能协作",
   
-  "corporateAI": "企业AI创世",
+  "corporateAI": "企业创世AI",
   "prismBuyAI": "Prism Buy AI",
   "blazeCipher": "BlazeCipher",
   "prismTravel": "Prism Travel | AI旅游解决方案",
@@ -76,7 +80,7 @@
   "solution": "解决方案",
   
   "intelligentExperienceTitle": "触手可及的智能体验",
-  "intelligentExperienceDesc": "Ignis Terra AI Solution 平台整合多种功能，提供无缝的人机协作体验",
+  "intelligentExperienceDesc": "平台整合多种功能，提供无缝的人机协作体验",
   
   "technicalHighlights": "技术亮点",
   "intuitiveInteraction": "直觉互动体验",
@@ -109,11 +113,12 @@
   
   "greetingFounder": "来自创始人的问候",
   "founderSubtitle": "运用科技提升人类潜能，创造更多价值与意义",
+  "founderTitle": "创始人兼首席创新官 | 跨国商业发展专家",
   "dearVisitor": "亲爱的访客：",
   "founderIntro1": "我是Kelly Liu，Ignis Terra AI Solution的创始人。感谢您访问我们的网站。",
   "founderIntro2": "作为一名拥有20年跨国企业经验的专业人士，我一直在思考一个问题：「科技如何真正服务于人，而非取代人的价值？」这个问题促使我创立了Ignis Terra AI Solution。",
   "founderIntro3": "我的职业生涯跨越北京、东京、柏林、伦敦、新加坡和台湾等全球商业中心，精通中文、英文和日文。这些经历给了我独特的跨文化视角，使我深刻理解不同文化背景的企业面临相似挑战但需要量身定制的解决方案。",
-  "founderIntro4": "在Ignis Terra，我和我的团队致力于将抽象的AI概念转变为实用的业务工具。我们不仅仅谈论技术，而是专注于解决实际问题。我坚信最好的技术应该有温度，理解人性，触动人心。",
+  "founderIntro4": "在Ignis Terra AI Solution，我和我的团队致力于将抽象的AI概念转变为实用的业务工具。我们不仅仅谈论技术，而是专注于解决实际问题。我坚信最好的技术应该有温度，理解人性，触动人心。",
   "founderIntro5": "我的愿景很简单：创造既温暖又扎根现实的AI解决方案，帮助企业在这个不可预测的时代保持灵活性和竞争力。AI不应该是冰冷的工具，而是理解您业务的智能伙伴。",
   "founderIntro6": "我期待有机会更多地了解您的业务需求，共同探索AI协作的无限可能。",
   "sincerely": "此致，",

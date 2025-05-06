@@ -101,7 +101,7 @@ const ChatWidget = () => {
 
       {/* 聊天窗口 */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-96 h-[500px] bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden border border-gray-200 animate-fade-in">
+        <div className="absolute bottom-20 right-0 w-[calc(100vw-3rem)] sm:w-96 max-w-[96vw] h-[500px] max-h-[70vh] bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden border border-gray-200 animate-fade-in">
           {/* 聊天頭部 */}
           <div className="bg-primary-blue text-white p-4 flex items-center justify-between">
             <div className="flex items-center">
@@ -164,10 +164,10 @@ const ChatWidget = () => {
           </div>
           
           {/* 輸入區域 */}
-          <div className="p-4 border-t border-gray-200 bg-white">
+          <div className="p-3 border-t border-gray-200 bg-white">
             <div className="flex items-center">
               <textarea 
-                className="flex-1 border border-gray-300 rounded-l-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary-blue/30 resize-none"
+                className="flex-1 border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-primary-blue/30 resize-none text-sm"
                 placeholder={t('chatInputPlaceholder')}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -176,7 +176,7 @@ const ChatWidget = () => {
                 aria-label={t('chatInputLabel')}
               />
               <button 
-                className="bg-primary-blue text-white p-3 rounded-r-lg hover:bg-primary-blue/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-primary-blue text-white p-2 rounded-r-lg hover:bg-primary-blue/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleSendMessage}
                 disabled={!input.trim() || isTyping}
                 aria-label={t('chatSendButton')}
@@ -184,7 +184,7 @@ const ChatWidget = () => {
                 <Send size={20} />
               </button>
             </div>
-            <div className="mt-2 text-xs text-gray-500 text-center">
+            <div className="mt-1 text-xs text-gray-500 text-center">
               {t('chatFooterText')}
             </div>
           </div>

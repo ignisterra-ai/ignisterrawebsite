@@ -13,11 +13,15 @@
   "exploreSolutions": "探索解決方案",
   "companySlogan": "溫暖的智能，點燃現實",
   
-  "commonPainPoints": "常見企業痛點",
-  "painPointsDescription": "無論行業如何，企業都面臨著相似的管理和決策挑戰",
+  "commonPainPoints": "企業常見痛點",
+  "painPointsDescription": "無論什麼行業，企業面臨著相似的管理與決策挑戰",
+  
+  "swipeToViewMore": "← 左右滑動查看更多卡片 →",
+  "scrollToPrevious": "滾動到上一頁",
+  "scrollToNext": "滾動到下一頁",
   
   "beyondTools": "超越工具，重新定義人機協作",
-  "solutionDescription": "Ignis Terra AI Solution 以人為本，讓AI成為團隊智慧的延伸，融入工作流程，創造真實價值",
+  "solutionDescription": "以人為本，讓AI成為團隊智慧的延伸，融入工作流程，創造真實價值",
   
   "intelligentPartner": "智能夥伴",
   "intelligentPartnerDesc": "不只是冰冷的工具，而是理解您行業語言和業務邏輯的智能夥伴 - 零障礙即可使用",
@@ -40,12 +44,12 @@
   "bookDemo": "預約演示以了解更多",
   
   "fourProductLines": "四大產品線：協作式全場景解決方案",
-  "productLinesDescription": "Ignis Terra AI Solution 的四大產品線形成完整智能生態系統，覆蓋企業內部、消費決策、生活規劃和文化領域，實現全場景智能協作",
+  "productLinesDescription": "的四大產品線形成完整智能生態系統，覆蓋企業內部、消費決策、生活規劃和文化領域，實現全場景智能協作",
   
-  "corporateAI": "企業AI創世",
+  "corporateAI": "企業創世AI",
   "prismBuyAI": "Prism Buy AI",
   "blazeCipher": "BlazeCipher",
-  "prismTravel": "Prism Travel | AI旅遊解決方案",
+  "prismTravel": "Prism Travel | AI旅遊",
   
   "positioning": "定位：",
   "coreValue": "核心價值：",
@@ -76,7 +80,7 @@
   "solution": "解決方案",
   
   "intelligentExperienceTitle": "觸手可及的智能體驗",
-  "intelligentExperienceDesc": "Ignis Terra AI Solution 平台整合多種功能，提供無縫的人機協作體驗",
+  "intelligentExperienceDesc": "平台整合多種功能，提供無縫的人機協作體驗",
   
   "technicalHighlights": "技術亮點",
   "intuitiveInteraction": "直覺互動體驗",
@@ -109,11 +113,12 @@
   
   "greetingFounder": "來自創始人的問候",
   "founderSubtitle": "運用科技提升人類潛能，創造更多價值與意義",
+  "founderTitle": "創辦人兼首席創新官 | 跨國商業發展專家",
   "dearVisitor": "親愛的訪客：",
   "founderIntro1": "我是Kelly Liu，Ignis Terra AI Solution的創辦人。感謝您訪問我們的網站。",
   "founderIntro2": "作為一名擁有20年跨國企業經驗的專業人士，我一直在思考一個問題：「科技如何真正服務於人，而非取代人的價值？」這個問題促使我創立了Ignis Terra AI Solution。",
   "founderIntro3": "我的職業生涯跨越北京、東京、柏林、倫敦、新加坡和台灣等全球商業中心，精通中文、英文和日文。這些經歷給了我獨特的跨文化視角，使我深刻理解不同文化背景的企業面臨相似挑戰但需要量身定制的解決方案。",
-  "founderIntro4": "在Ignis Terra，我和我的團隊致力於將抽象的AI概念轉變為實用的業務工具。我們不僅僅談論技術，而是專注於解決實際問題。我堅信最好的技術應該有溫度，理解人性，觸動人心。",
+  "founderIntro4": "在Ignis Terra AI Solution，我和我的團隊致力於將抽象的AI概念轉變為實用的業務工具。我們不僅僅談論技術，而是專注於解決實際問題。我堅信最好的技術應該有溫度，理解人性，觸動人心。",
   "founderIntro5": "我的願景很簡單：創造既溫暖又紮根現實的AI解決方案，幫助企業在這個不可預測的時代保持靈活性和競爭力。AI不應該是冰冷的工具，而是理解您業務的智能夥伴。",
   "founderIntro6": "我期待有機會更多地了解您的業務需求，共同探索AI協作的無限可能。",
   "sincerely": "此致，",

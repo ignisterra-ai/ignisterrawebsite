@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 export default function SEO({ 
   title = 'Ignis Terra - AI解決方案專家 | 企業智能化轉型夥伴', 
   description = 'Ignis Terra提供專業AI解決方案，助力企業實現智能化轉型。我們的專家團隊為您打造定制化AI工具，提升效率、優化流程、創造價值。', 
-  image = '/images/ai-implementation-funnel.png',
+  image = '/images/ai-implementation-funnel.png?v=2',
   keywords = 'AI解决方案,人工智能,企业AI,AI工具,AI优化,商业智能,Ignis Terra,企业转型,AI咨询',
   author = 'Ignis Terra AI Solution Team'
 }) {
