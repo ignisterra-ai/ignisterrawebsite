@@ -748,7 +748,7 @@ const Sections = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-xl">Kelly Liu</h3>
-                  <p className="text-gray-600">{t('founderTitle')}</p>
+                  <p className="text-gray-600">{t('founderAndCIO')}</p>
                 </div>
               </div>
             
@@ -782,8 +782,7 @@ const Sections = () => {
                 <div className="mt-6">
                   <p className="mb-1">{t('sincerely')}</p>
                   <p className="font-medium text-gray-800">Kelly Liu</p>
-                  <p className="text-gray-600">Founder & Chief Innovation Officer</p>
-                  <p className="text-gray-600">Ignis Terra AI Solution</p>
+                  <p className="text-gray-600">{`${t('brandName')}`}</p>
                 </div>
                 
                 <div className="mt-8 bg-gradient-to-br from-blue-50/70 to-rose-50/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 relative overflow-hidden transform transition-all hover:shadow-xl" 
