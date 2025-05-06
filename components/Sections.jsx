@@ -335,8 +335,8 @@ const Sections = () => {
         </div>
       </section>
 
-      {/* ===== 解決方案展示區塊 ===== */}
-      <section className="py-24 bg-transparent relative overflow-hidden" id="work">
+      {/* ===== 產品線區塊 ===== */}
+      <section className="py-24 bg-transparent relative overflow-hidden" id="products">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16 relative z-50">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title" style={{ lineHeight: 1.2 }}>

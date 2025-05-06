@@ -71,23 +71,26 @@ const Header = () => {
     marginTop: '2px',
     fontFamily: 'Montserrat, sans-serif',
     fontWeight: 700,
-    letterSpacing: '-0.5px'
+    letterSpacing: '-0.5px',
+    zIndex: 40  // 添加z-index确保正确的层级
   };
   
   return (
     <>
       {/* 品牌标志 - 左上角 */}
-      <div className="absolute top-3 left-4 md:top-6 md:left-6 flex items-center">
-        <span className="text-white font-bold text-lg md:text-2xl" style={brandNameStyle}>
-          {t('brandName')}
-        </span>
+      <div className="fixed top-3 left-4 md:top-6 md:left-6 flex items-center z-40">
+        <Link href="/" className="flex items-center">
+          <span className="text-primary-blue font-bold text-lg md:text-2xl hover:opacity-80 transition-opacity" style={brandNameStyle}>
+            {t('brandName')}
+          </span>
+        </Link>
       </div>
 
       {/* 语言切换按钮 - 确保z-index高于菜单 */}
       <div 
         className={`fixed top-5 right-16 md:top-7 md:right-20 z-[60] cursor-pointer transition-opacity duration-300 ${
-          (scrollPosition > 100 && !menuOpen) ? 'opacity-70 hover:opacity-100' : 'opacity-100'
-        } ${isMobile && isScrolling && !menuOpen ? 'hidden' : ''}`}
+          (scrollPosition > 100 && !menuOpen) ? 'opacity-0 invisible' : 'opacity-100 visible'
+        }`}
         onClick={(e) => {
           e.stopPropagation();
           setLangMenuOpen(!langMenuOpen);
@@ -167,15 +170,17 @@ const Header = () => {
           <X size={32} strokeWidth={1.5} />
         </button>
         
-        {/* 品牌标志 - 左上角 */}
+        {/* 品牌标志 - 菜单打开时 */}
         <div className="absolute top-5 left-4 md:top-7 md:left-6 flex items-center">
-          <span className="text-white font-bold text-lg md:text-2xl" style={{
-            ...brandNameStyle,
-            color: 'white', 
-            textShadow: 'none'
-          }}>
-            {t('brandName')}
-          </span>
+          <Link href="/" onClick={() => setMenuOpen(false)}>
+            <span className="text-white font-bold text-lg md:text-2xl" style={{
+              ...brandNameStyle,
+              color: 'white', 
+              textShadow: 'none'
+            }}>
+              {t('brandName')}
+            </span>
+          </Link>
         </div>
         
         {/* 移动版语言切换按钮 - 仅在菜单打开时显示 */}
@@ -213,20 +218,28 @@ const Header = () => {
           <ul className="space-y-12 md:space-y-16">
             <li className="transform transition-transform hover:translate-x-2">
               <Link 
-                href="/#work" 
-                className="flex items-center text-gray-600 hover:text-gray-900"
+                href="/#products" 
+                className="text-white text-4xl md:text-6xl font-bold hover:text-gray-200 transition-colors tracking-wide"
+                onClick={() => setMenuOpen(false)}
               >
-                <ArrowLeft className="h-5 w-5 mr-2" />
-                {t('back')}
+                {t('Product')}
               </Link>
             </li>
             <li className="transform transition-transform hover:translate-x-2">
-              <Link href="/#about" className="text-white text-4xl md:text-6xl font-bold hover:text-gray-200 transition-colors tracking-wide" onClick={() => setMenuOpen(false)}>
+              <Link 
+                href="/#about" 
+                className="text-white text-4xl md:text-6xl font-bold hover:text-gray-200 transition-colors tracking-wide" 
+                onClick={() => setMenuOpen(false)}
+              >
                 {t('aboutUs')}
               </Link>
             </li>
             <li className="transform transition-transform hover:translate-x-2">
-              <Link href="/#contact" className="text-white text-4xl md:text-6xl font-bold hover:text-gray-200 transition-colors tracking-wide" onClick={() => setMenuOpen(false)}>
+              <Link 
+                href="/#contact" 
+                className="text-white text-4xl md:text-6xl font-bold hover:text-gray-200 transition-colors tracking-wide" 
+                onClick={() => setMenuOpen(false)}
+              >
                 {t('contactUs')}
               </Link>
             </li>
