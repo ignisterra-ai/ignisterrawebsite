@@ -887,13 +887,6 @@ const Sections = () => {
                       />
                     </div>
                     <div>
-                      <input 
-                        type="text" 
-                        placeholder={t('companyName')}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white/70 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary-blue/30 focus:border-primary-blue"
-                      />
-                    </div>
-                    <div>
                       <textarea 
                         placeholder={t('yourNeeds')}
                         rows="4" 

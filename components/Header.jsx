@@ -53,7 +53,7 @@ const Header = () => {
   return (
     <>
       {/* 品牌标志 - 左上角 */}
-      <div className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center">
+      <div className="absolute top-3 left-4 md:top-6 md:left-6 flex items-center">
         <span className="text-white font-bold text-lg md:text-2xl" style={brandNameStyle}>
           Ignis Terra AI Solution
         </span>
@@ -61,7 +61,7 @@ const Header = () => {
 
       {/* 语言切换按钮 - 确保z-index高于菜单 */}
       <div 
-        className={`fixed top-6 right-16 md:top-8 md:right-20 z-[60] cursor-pointer transition-opacity duration-300 ${
+        className={`fixed top-4 right-16 md:top-7 md:right-20 z-[60] cursor-pointer transition-opacity duration-300 ${
           scrollPosition > 100 && !menuOpen ? 'opacity-70 hover:opacity-100' : 'opacity-100'
         }`}
         onClick={(e) => {
@@ -70,7 +70,6 @@ const Header = () => {
         }}
       >
         {/* 更新为更美观的地球图标 */}
-        {/* 要調整圖標大小，可修改這裡的w-7和h-7（外部容器）以及下面SVG的width和height屬性 */}
         <div className="w-10 h-10 relative flex items-center justify-center text-gray-800 hover:text-gray-600 transition-colors">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -116,7 +115,7 @@ const Header = () => {
     
       {/* 固定在右上角的汉堡菜单按钮 */}
       <div 
-        className={`fixed top-6 right-6 md:top-8 md:right-8 z-50 cursor-pointer transition-opacity duration-300 ${
+        className={`fixed top-5 right-6 md:top-8 md:right-8 z-50 cursor-pointer transition-opacity duration-300 ${
           scrollPosition > 100 && !menuOpen ? 'opacity-70 hover:opacity-100' : 'opacity-100'
         }`}
         onClick={() => setMenuOpen(true)}
