@@ -1,11 +1,11 @@
 {
   "name": "Ignis Terra AI Solution",
   "short_name": "Ignis Terra",
-  "description": "人機協作的藝術 - 讓AI成為團隊的超能力",
+  "description": "專業AI解決方案，助力企業實現智能化轉型",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#FFFFFF",
+  "theme_color": "#002366",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -49,5 +49,19 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "解決方案",
+      "url": "/solutions",
+      "description": "查看 Ignis Terra 的 AI 解決方案"
+    },
+    {
+      "name": "聯絡我們",
+      "url": "/contact",
+      "description": "聯繫 Ignis Terra 團隊"
+    }
+  ],
+  "scope": "/",
+  "lang": "zh-Hant"
 } 

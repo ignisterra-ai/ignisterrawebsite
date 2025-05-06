@@ -4,17 +4,34 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import SEO from '../components/SEO';
+import { WebpageJsonLd, BreadcrumbJsonLd } from '../components/JsonLd';
 
 // 确保使用Next.js的路由进行导航
 const BlazeCipher = () => {
   const router = useRouter();
+  const title = "智光探命 | BlazeCipher - 晟垚智能科技";
+  const description = "BlazeCipher - AI賦能的現代命理解決方案。傳統智慧與現代科技的融合。";
   
   return (
     <>
-      <Head>
-        <title>智光探命 | BlazeCipher - 晟垚智能科技</title>
-        <meta name="description" content="BlazeCipher - AI賦能的現代命理解決方案。傳統智慧與現代科技的融合。" />
-      </Head>
+      <SEO 
+        title={title}
+        description={description}
+        keywords="命理AI, 智能命理, 現代命理, 命理科技, 智光探命, BlazeCipher"
+      />
+      <WebpageJsonLd 
+        title={title}
+        description={description}
+        url="https://www.ignisterra.ai/blazecipher"
+      />
+      <BreadcrumbJsonLd 
+        items={[
+          { name: '首頁', url: 'https://www.ignisterra.ai' },
+          { name: '產品服務', url: 'https://www.ignisterra.ai/products' },
+          { name: '智光探命', url: 'https://www.ignisterra.ai/blazecipher' }
+        ]}
+      />
 
       <div className="min-h-screen flex flex-col">
         {/* 頂部導航返回按鈕 */}

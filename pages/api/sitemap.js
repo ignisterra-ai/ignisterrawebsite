@@ -5,13 +5,13 @@ export default function handler(req, res) {
   // 获取当前日期作为lastmod
   const date = new Date().toISOString().split('T')[0];
   
-  // 网站所有页面列表
+  // 网站所有页面列表 - 更新为实际页面
   const pages = [
-    '',            // 首页
-    '/about',     // 如果有关于页面
-    '/services',  // 如果有服务页面
-    '/contact'    // 如果有联系页面
-    // 添加网站所有其他页面
+    '',                     // 首页
+    '/blazecipher',         // 已有页面
+    '/corporate-ai-genesis', // 已有页面
+    '/prism-buy-ai',        // 已有页面
+    '/prism-travel'         // 已有页面
   ];
   
   // 生成sitemap XML

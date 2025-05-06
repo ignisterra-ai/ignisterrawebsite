@@ -14,7 +14,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center">
               <img 
-                src="/images/trans1.png" 
+                src="/images/logo.png" 
                 alt="Ignis Terra Logo" 
                 className="h-20 w-auto mr-1"
               />

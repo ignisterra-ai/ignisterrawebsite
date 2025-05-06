@@ -13,15 +13,15 @@ export default function Home() {
   return (
     <div className="bg-transparent">
       <SEO 
-        title={`${t('brandName')} - ${t('tagline')}`}
-        description={t('description')}
-        keywords={t('keywords')}
+        title="Seamless AI Integration | Ignis Terra AI"
+        description="Plug and play intelligence—instantly elevating your team's capabilities with our enterprise AI solutions."
+        keywords="AI solution, enterprise AI, business AI, seamless integration"
       />
       <CompanyJsonLd />
       <WebpageJsonLd 
-        title={`${t('brandName')} - ${t('tagline')}`}
-        description={t('description')}
-        pageType="WebPage"
+        title="Seamless AI Integration | Ignis Terra AI"
+        description="Plug and play intelligence—instantly elevating your team's capabilities."
+        url="https://www.ignisterra.ai/"
       />
 
       <Header />

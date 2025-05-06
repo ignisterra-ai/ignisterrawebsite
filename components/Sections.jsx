@@ -122,10 +122,10 @@ const Sections = () => {
       <section className="py-24 bg-transparent relative overflow-hidden">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16 relative z-50">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title" style={{ lineHeight: 1.2 }}>
               {t('commonPainPoints')}
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-tight py-1">
               {t('painPointsDescription')}
             </p>
           </div>
@@ -154,10 +154,10 @@ const Sections = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 via-neutral-50/60 to-rose-50/60 -z-10"></div>
             
             <div className="text-center mb-16 relative z-50">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title" style={{ lineHeight: 1.2 }}>
                 {t('beyondTools')}
               </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-tight py-1">
                 {t('solutionDescription')}
               </p>
             </div>
@@ -318,10 +318,10 @@ const Sections = () => {
       <section className="py-24 bg-transparent relative overflow-hidden" id="work">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16 relative z-50">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title" style={{ lineHeight: 1.2 }}>
               {t('fourProductLines')}
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-tight py-1">
               {t('productLinesDescription')}
             </p>
           </div>
@@ -522,10 +522,10 @@ const Sections = () => {
       <section className="py-24 bg-neutral-light-gray relative overflow-hidden">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16 relative z-50">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title" style={{ lineHeight: 1.2 }}>
               {t('intelligentExperienceTitle')}
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-tight py-1">
               {t('intelligentExperienceDesc')}
             </p>
           </div>
@@ -535,7 +535,7 @@ const Sections = () => {
             <div className="absolute top-0 left-0 right-0 h-2 bg-primary-blue/10 rounded-t-2xl overflow-hidden">
               <div className="h-full bg-primary-blue rounded-full w-1/5 mx-auto"></div>
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center gradient-text-title">{t('technicalHighlights')}</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center gradient-text-title" style={{ lineHeight: 1.2 }}>{t('technicalHighlights')}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:px-4">
               <div className="text-center bg-white rounded-xl p-6 hover:shadow-md transition-all border border-gray-200 shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
                 <div className="w-16 h-16 mx-auto bg-blue-50 rounded-2xl flex items-center justify-center mb-4 border border-blue-100">
@@ -584,7 +584,7 @@ const Sections = () => {
             <div className="absolute top-0 left-0 right-0 h-2 bg-teal-400/10 rounded-t-2xl overflow-hidden">
               <div className="h-full bg-teal-400 rounded-full w-1/5 mx-auto"></div>
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center gradient-text-title">{t('quickSmallSteps')}</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center gradient-text-title" style={{ lineHeight: 1.2 }}>{t('quickSmallSteps')}</h3>
             
             <div className="flex flex-col md:flex-row items-center gap-8">
               {/* 漏斗图 */}
@@ -631,7 +631,7 @@ const Sections = () => {
             <div className="absolute top-0 left-0 right-0 h-2 bg-primary-red/10 rounded-t-2xl overflow-hidden">
               <div className="h-full bg-primary-red rounded-full w-1/5 mx-auto"></div>
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center gradient-text-title">{t('reasonableInvestment')}</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center gradient-text-title" style={{ lineHeight: 1.2 }}>{t('reasonableInvestment')}</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* 低門檻起步 */}
@@ -703,11 +703,11 @@ const Sections = () => {
       <section className="py-24 bg-neutral-light-gray relative overflow-hidden" id="about">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16 relative z-50">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title flex items-center justify-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text-title flex items-center justify-center" style={{ lineHeight: 1.2 }}>
               {t('greetingFounder')}
               <span className="ml-2 inline-block animate-wave origin-bottom-right text-4xl">👋🏻</span>
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-tight py-1">
               {t('founderSubtitle')}
             </p>
           </div>
@@ -839,10 +839,10 @@ const Sections = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 via-neutral-50/60 to-rose-50/60 -z-10"></div>
             
             <div className="text-center mb-12 relative z-50">
-              <h2 className="text-4xl md:text-6xl font-bold mb-6 gradient-text-title">
+              <h2 className="text-4xl md:text-6xl font-bold mb-6 gradient-text-title" style={{ lineHeight: 1.2 }}>
                 {t('readyForChange')}
               </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-tight py-1">
                 {t('contactUsSubtitle')}
               </p>
             </div>

@@ -4,16 +4,33 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import SEO from '../components/SEO';
+import { WebpageJsonLd, BreadcrumbJsonLd } from '../components/JsonLd';
 
 const PrismTravel = () => {
   const router = useRouter();
+  const title = "AI旅遊解決方案 | Prism Travel - 晟垚智能科技";
+  const description = "Prism Travel - 個人專屬旅遊規劃師。如指紋般獨一無二的旅程體驗。";
   
   return (
     <>
-      <Head>
-        <title>AI旅遊解決方案 | Prism Travel - 晟垚智能科技</title>
-        <meta name="description" content="Prism Travel - 個人專屬旅遊規劃師。如指紋般獨一無二的旅程體驗。" />
-      </Head>
+      <SEO 
+        title={title}
+        description={description}
+        keywords="AI旅遊, 智能旅遊規劃, 旅程體驗, 個性化旅遊, Prism Travel, 旅遊解決方案"
+      />
+      <WebpageJsonLd 
+        title={title}
+        description={description}
+        url="https://www.ignisterra.ai/prism-travel"
+      />
+      <BreadcrumbJsonLd 
+        items={[
+          { name: '首頁', url: 'https://www.ignisterra.ai' },
+          { name: '產品服務', url: 'https://www.ignisterra.ai/products' },
+          { name: 'AI旅遊解決方案', url: 'https://www.ignisterra.ai/prism-travel' }
+        ]}
+      />
 
       <div className="min-h-screen flex flex-col">
         {/* 頂部導航返回按鈕 */}

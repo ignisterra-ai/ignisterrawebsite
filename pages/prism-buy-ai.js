@@ -4,16 +4,33 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import SEO from '../components/SEO';
+import { WebpageJsonLd, BreadcrumbJsonLd } from '../components/JsonLd';
 
 const PrismBuyAI = () => {
   const router = useRouter();
+  const title = "購會買 | Prism Buy AI - 晟垚智能科技";
+  const description = "Prism Buy AI - 智能導購解決方案。美學與數據融合的選購體驗。";
   
   return (
     <>
-      <Head>
-        <title>購會買 | Prism Buy AI - 晟垚智能科技</title>
-        <meta name="description" content="Prism Buy AI - 智能導購解決方案。美學與數據融合的選購體驗。" />
-      </Head>
+      <SEO 
+        title={title}
+        description={description}
+        keywords="智能導購, AI購物, 電商AI, 購物體驗, 購會買, Prism Buy AI"
+      />
+      <WebpageJsonLd 
+        title={title}
+        description={description}
+        url="https://www.ignisterra.ai/prism-buy-ai"
+      />
+      <BreadcrumbJsonLd 
+        items={[
+          { name: '首頁', url: 'https://www.ignisterra.ai' },
+          { name: '產品服務', url: 'https://www.ignisterra.ai/products' },
+          { name: '購會買', url: 'https://www.ignisterra.ai/prism-buy-ai' }
+        ]}
+      />
 
       <div className="min-h-screen flex flex-col">
         {/* 頂部導航返回按鈕 */}

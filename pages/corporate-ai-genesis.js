@@ -4,16 +4,33 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import SEO from '../components/SEO';
+import { WebpageJsonLd, BreadcrumbJsonLd } from '../components/JsonLd';
 
 const CorporateAIGenesis = () => {
   const router = useRouter();
+  const title = "創世AI | Corporate AI Genesis - 晟垚智能科技";
+  const description = "創世AI - 企業的數位智囊團與協作夥伴。系統化知識傳承，客觀決策支持。";
   
   return (
     <>
-      <Head>
-        <title>創世AI | Corporate AI Genesis - 晟垚智能科技</title>
-        <meta name="description" content="創世AI - 企業的數位智囊團與協作夥伴。系統化知識傳承，客觀決策支持。" />
-      </Head>
+      <SEO 
+        title={title}
+        description={description}
+        keywords="企業AI, 知識傳承, 數位轉型, 決策支持, 創世AI, Corporate AI Genesis"
+      />
+      <WebpageJsonLd 
+        title={title}
+        description={description}
+        url="https://www.ignisterra.ai/corporate-ai-genesis"
+      />
+      <BreadcrumbJsonLd 
+        items={[
+          { name: '首頁', url: 'https://www.ignisterra.ai' },
+          { name: '產品服務', url: 'https://www.ignisterra.ai/products' },
+          { name: '創世AI', url: 'https://www.ignisterra.ai/corporate-ai-genesis' }
+        ]}
+      />
 
       <div className="min-h-screen flex flex-col">
         {/* 頂部導航返回按鈕 */}

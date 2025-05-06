@@ -59,12 +59,15 @@ const Header = () => {
         </span>
       </div>
 
-      {/* 语言切换按钮 */}
+      {/* 语言切换按钮 - 确保z-index高于菜单 */}
       <div 
-        className={`fixed top-6 right-16 md:top-8 md:right-20 z-50 cursor-pointer transition-opacity duration-300 ${
+        className={`fixed top-6 right-16 md:top-8 md:right-20 z-[60] cursor-pointer transition-opacity duration-300 ${
           scrollPosition > 100 && !menuOpen ? 'opacity-70 hover:opacity-100' : 'opacity-100'
         }`}
-        onClick={() => setLangMenuOpen(!langMenuOpen)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setLangMenuOpen(!langMenuOpen);
+        }}
       >
         {/* 更新为更美观的地球图标 */}
         {/* 要調整圖標大小，可修改這裡的w-7和h-7（外部容器）以及下面SVG的width和height屬性 */}
@@ -75,7 +78,7 @@ const Header = () => {
             width="24" 
             height="24" 
             fill="none" 
-            stroke="currentColor" 
+            stroke={menuOpen ? "white" : "currentColor"} 
             strokeWidth="2" 
             strokeLinecap="round" 
             strokeLinejoin="round"
@@ -88,7 +91,7 @@ const Header = () => {
         
         {/* 语言下拉菜单 */}
         {langMenuOpen && (
-          <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-md py-2 w-24">
+          <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-md py-2 w-24 z-[70]">
             <button 
               onClick={() => changeLanguage('en')} 
               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
