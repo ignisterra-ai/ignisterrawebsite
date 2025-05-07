@@ -418,21 +418,25 @@ const PainPointCards = () => {
                     {/* 移除半透明背景，使用纯色背景 */}
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-800 to-amber-950 -z-10"></div>
                     
-                    {/* 使用样式对象替代动态Tailwind类名，但确保光晕效果不会影响文字可读性 */}
+                    {/* 修改光晕效果，确保不遮挡文字 */}
                     <div 
-                      className="absolute top-1/4 -left-20 w-40 h-40 rounded-full filter blur-[50px] opacity-30 -z-5"
+                      className="absolute top-0 -left-40 w-40 h-40 rounded-full filter blur-[80px] -z-10"
                       style={{ 
                         backgroundColor: showSolution && activeCard === index
                           ? `rgb(var(--color-${point.color}-600))`
-                          : `rgb(var(--color-${point.color}-600))` 
+                          : `rgb(var(--color-${point.color}-600))`,
+                        pointerEvents: 'none',
+                        opacity: 0.15
                       }}
                     ></div>
                     <div 
-                      className="absolute bottom-1/4 -right-20 w-40 h-40 rounded-full filter blur-[50px] opacity-30 -z-5"
+                      className="absolute bottom-0 -right-40 w-40 h-40 rounded-full filter blur-[80px] -z-10"
                       style={{ 
                         backgroundColor: showSolution && activeCard === index
                           ? `rgb(var(--color-${point.color}-600))`
-                          : `rgb(var(--color-${point.color}-600))` 
+                          : `rgb(var(--color-${point.color}-600))`,
+                        pointerEvents: 'none',
+                        opacity: 0.15
                       }}
                     ></div>
                     
@@ -525,7 +529,7 @@ const PainPointCards = () => {
                     
                     {/* 卡片底部 */}
                     <div className="py-5 px-5 mt-auto border-t border-white/20 flex justify-between items-center">
-                      <div className="text-white/90 text-sm">Ignis Terra AI Solution | 晟垚智能科技</div>
+                      <div className="text-white/90 text-sm">{t('companyName') || "Ignis Terra AI Solution | 晟垚智能科技"}</div>
                       <div className="flex items-center">
                         <svg className="w-6 h-6 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
@@ -542,28 +546,28 @@ const PainPointCards = () => {
           })}
         </div>
         
-        {/* 左右导航按钮 */}
-        <div className="absolute -left-12 md:left-0 top-1/2 transform -translate-y-1/2 z-50">
+        {/* 左右导航按钮 - 调整位置到卡片左右两侧的空白区域 */}
+        <div className="absolute left-[-5%] md:left-[5%] lg:left-[10%] top-1/2 transform -translate-y-1/2 z-50">
           <motion.button
-            className="w-16 h-16 bg-white/20 rounded-full border border-white/40 flex items-center justify-center shadow-lg hover:bg-white/30 transition-all"
+            className="w-12 h-12 bg-white/20 rounded-full border border-white/40 flex items-center justify-center shadow-lg hover:bg-white/30 transition-all"
             onClick={() => changeCard('prev')}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7"></path>
             </svg>
           </motion.button>
         </div>
         
-        <div className="absolute -right-12 md:right-0 top-1/2 transform -translate-y-1/2 z-50">
+        <div className="absolute right-[-5%] md:right-[5%] lg:right-[10%] top-1/2 transform -translate-y-1/2 z-50">
           <motion.button
-            className="w-16 h-16 bg-white/20 rounded-full border border-white/40 flex items-center justify-center shadow-lg hover:bg-white/30 transition-all"
+            className="w-12 h-12 bg-white/20 rounded-full border border-white/40 flex items-center justify-center shadow-lg hover:bg-white/30 transition-all"
             onClick={() => changeCard('next')}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"></path>
             </svg>
           </motion.button>
