@@ -10,6 +10,7 @@ const Header = () => {
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(false);
   const router = useRouter();
   const { t } = useTranslation('common');
   
@@ -26,6 +27,8 @@ const Header = () => {
   
   // 控制滚动位置
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    
     const handleScroll = () => {
       const currentPosition = window.scrollY;
       setScrollPosition(currentPosition);
@@ -33,12 +36,20 @@ const Header = () => {
       // 检测滚动状态
       if (currentPosition > 10) {
         setIsScrolling(true);
+        
+        // 滚动方向检测 - 向下滚动时隐藏，向上滚动时显示
+        if (currentPosition > lastScrollY && currentPosition > 100) {
+          setHeaderHidden(true);
+        } else {
+          setHeaderHidden(false);
+        }
       } else {
-        // 给一个短暂的延迟来防止频繁切换
-        setTimeout(() => {
-          setIsScrolling(false);
-        }, 300);
+        // 回到顶部时显示
+        setIsScrolling(false);
+        setHeaderHidden(false);
       }
+      
+      lastScrollY = currentPosition;
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -78,7 +89,11 @@ const Header = () => {
   return (
     <>
       {/* 品牌标志 - 左上角 */}
-      <div className="fixed top-3 left-4 md:top-6 md:left-6 flex items-center z-40">
+      <div 
+        className={`fixed top-3 left-4 md:top-6 md:left-6 flex items-center z-40 transition-all duration-300 ${
+          headerHidden && !menuOpen ? '-translate-y-16' : 'translate-y-0'
+        }`}
+      >
         <Link href="/" className="flex items-center">
           <span className="text-primary-blue font-bold text-lg md:text-2xl hover:opacity-80 transition-opacity" style={brandNameStyle}>
             {t('brandName')}
@@ -88,7 +103,7 @@ const Header = () => {
 
       {/* 语言切换按钮 - 确保z-index高于菜单 */}
       <div 
-        className={`fixed top-5 right-16 md:top-7 md:right-20 z-[60] cursor-pointer transition-opacity duration-300 ${
+        className={`fixed top-5 right-16 md:top-7 md:right-20 z-[60] cursor-pointer transition-all duration-300 ${
           (scrollPosition > 100 && !menuOpen) ? 'opacity-0 invisible' : 'opacity-100 visible'
         }`}
         onClick={(e) => {
@@ -141,7 +156,7 @@ const Header = () => {
         )}
       </div>
     
-      {/* 固定在右上角的汉堡菜单按钮 */}
+      {/* 固定在右上角的汉堡菜单按钮 - 始终可见 */}
       <div 
         className={`fixed top-5 right-6 md:top-7 md:right-8 z-50 cursor-pointer transition-opacity duration-300 ${
           scrollPosition > 100 && !menuOpen ? 'opacity-70 hover:opacity-100' : 'opacity-100'
