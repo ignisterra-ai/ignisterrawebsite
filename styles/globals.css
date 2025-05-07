@@ -443,12 +443,16 @@ img, span[style*="box-sizing: border-box"] {
   /* 添加默认位置偏移，确保手指不会太远 */
   transform: translateX(0);
   will-change: transform;
+  /* 添加GPU加速 */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 .hand-touching {
-  /* 改进触摸效果，更加明显 */
-  filter: brightness(1.15);
-  transition: filter 0.3s ease-out;
+  /* 改进触摸效果，更加明显但不过度 */
+  filter: brightness(1.12);
+  transition: filter 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .text-glow {
@@ -509,19 +513,19 @@ img, span[style*="box-sizing: border-box"] {
 /* 響應式調整 - 改進手部圖像在各種屏幕尺寸下的顯示 */
 @media (max-width: 1400px) {
   .hand-left, .hand-right {
-    transform: scale(0.95);
+    transform: scale(0.95) translate3d(0, 0, 0);
   }
 }
 
 @media (max-width: 1200px) {
   .hand-left, .hand-right {
-    transform: scale(0.9);
+    transform: scale(0.9) translate3d(0, 0, 0);
   }
 }
 
 @media (max-width: 992px) {
   .hand-left, .hand-right {
-    transform: scale(0.85);
+    transform: scale(0.85) translate3d(0, 0, 0);
   }
   
   /* 減小間距使手部更接近 */
@@ -536,33 +540,37 @@ img, span[style*="box-sizing: border-box"] {
 
 @media (max-width: 768px) {
   .hand-left, .hand-right {
-    transform: scale(0.8);
+    transform: scale(0.8) translate3d(0, 0, 0);
   }
   
   /* 在小屏幕上减少图像间距 */
   .hand-left img {
     right: 5% !important;
+    transition: transform 0.3s ease, right 0.3s ease;
   }
   
   .hand-right img {
     left: 5% !important;
+    transition: transform 0.3s ease, left 0.3s ease;
   }
 }
 
 @media (max-width: 576px) {
   .hand-left, .hand-right {
-    transform: scale(0.65);
+    transform: scale(0.68) translate3d(0, 0, 0);
   }
   
   /* 在最小屏幕上进一步减少间距 */
   .hand-left img {
     right: 0% !important;
     top: 40% !important;
+    transition: transform 0.3s ease, right 0.3s ease, top 0.3s ease;
   }
   
   .hand-right img {
     left: 0% !important;
     top: 40% !important;
+    transition: transform 0.3s ease, left 0.3s ease, top 0.3s ease;
   }
   
   /* 确保手机版可以滚动 */

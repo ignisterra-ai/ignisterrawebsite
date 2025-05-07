@@ -99,14 +99,14 @@ const HeroSection = () => {
       const relativeX = mouseX - centerX;
       const relativeY = mouseY - centerY;
       
-      // 移动范围
+      // 移动范围 - 这里控制手指的最大移动距离
       const moveRange = Math.min(275, rect.width / 4);
       
-      // 计算水平和垂直移动
+      // 计算水平和垂直移动 - 这里的系数控制移动幅度
       const moveX = (relativeX / centerX) * moveRange;
-      const moveY = (relativeY / centerY) * (moveRange / 4);
+      const moveY = (relativeY / centerY) * (moveRange / 4); // 垂直移动范围是水平的1/4
       
-      // 检测是否在中心区域
+      // 检测是否在中心区域 - 这个阈值控制手指触碰的判定范围
       const touchThreshold = rect.width * 0.08;
       const isTouching = Math.abs(relativeX) < touchThreshold;
       
@@ -115,24 +115,26 @@ const HeroSection = () => {
         setHandsTouching(isTouching);
       }
       
-      // 设置目标位置
+      // 设置目标位置 - 这些固定值控制手指在不同状态下的位置
       if (isTouching) {
-        targetLeftX = -3;
-        targetLeftY = -moveY;
-        targetRightX = 3;
-        targetRightY = -moveY;
+        // 触摸状态下的手指位置偏移
+        targetLeftX = -3;  // 左手水平偏移
+        targetLeftY = -moveY;  // 左手垂直位置跟随鼠标
+        targetRightX = 3;  // 右手水平偏移
+        targetRightY = -moveY;  // 右手垂直位置跟随鼠标
       } else {
-        targetLeftX = moveX / 2;
-        targetLeftY = -moveY;
-        targetRightX = -moveX / 2;
-        targetRightY = -moveY;
+        // 非触摸状态下的手指位置计算
+        targetLeftX = moveX / 2;  // 左手水平位置是鼠标移动的一半
+        targetLeftY = -moveY;  // 左手垂直位置跟随鼠标
+        targetRightX = -moveX / 2;  // 右手水平位置是鼠标移动的一半但方向相反
+        targetRightY = -moveY;  // 右手垂直位置跟随鼠标
       }
     };
     
     // 更新手部位置的动画
     const updateHandPositions = () => {
-      // 平滑插值
-      const smoothFactor = 0.12;
+      // 平滑插值 - 调整平滑系数以获得更自然的动作
+      const smoothFactor = window.innerWidth < 768 ? 0.15 : 0.13;
       
       // 左手插值
       currentLeftX = lerp(currentLeftX, targetLeftX, smoothFactor);
@@ -142,7 +144,7 @@ const HeroSection = () => {
       currentRightX = lerp(currentRightX, targetRightX, smoothFactor);
       currentRightY = lerp(currentRightY, targetRightY, smoothFactor);
       
-      // 应用变换
+      // 应用变换 - 使用transform3d提高性能
       leftHand.style.transform = `translate3d(${currentLeftX}px, ${currentLeftY}px, 0)`;
       rightHand.style.transform = `translate3d(${currentRightX}px, ${currentRightY}px, 0)`;
       
@@ -167,11 +169,25 @@ const HeroSection = () => {
       const touch = e.touches[0];
       if (!touch) return;
       
-      const rect = container.getBoundingClientRect();
-      const touchX = touch.clientX - rect.left;
-      const touchY = touch.clientY - rect.top;
-      
-      calculateHandPositions(touchX, touchY);
+      // 添加触摸事件的节流处理
+      if (!window.requestAnimationFrame) {
+        // 对不支持requestAnimationFrame的浏览器使用备用方案
+        const rect = container.getBoundingClientRect();
+        const touchX = touch.clientX - rect.left;
+        const touchY = touch.clientY - rect.top;
+        
+        calculateHandPositions(touchX, touchY);
+      } else {
+        // 使用requestAnimationFrame来优化性能
+        window.cancelAnimationFrame(window.touchMoveRAF);
+        window.touchMoveRAF = window.requestAnimationFrame(() => {
+          const rect = container.getBoundingClientRect();
+          const touchX = touch.clientX - rect.left;
+          const touchY = touch.clientY - rect.top;
+          
+          calculateHandPositions(touchX, touchY);
+        });
+      }
     };
     
     // 添加事件监听
@@ -185,9 +201,11 @@ const HeroSection = () => {
     return () => {
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('touchmove', handleTouchMove);
-      
       if (requestAnimationFrameId.current) {
         cancelAnimationFrame(requestAnimationFrameId.current);
+      }
+      if (window.touchMoveRAF) {
+        cancelAnimationFrame(window.touchMoveRAF);
       }
     };
   }, [handsTouching]);
