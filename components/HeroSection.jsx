@@ -48,6 +48,18 @@ const HeroSection = () => {
   const rightHandPos = useRef({ x: 0, y: 0 });
   const requestAnimationFrameId = useRef(null);
   
+  // 平滑滚动到指定区块的函数
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      // 使用更流畅的滚动行为
+      section.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+  
   // 初始化和窗口大小监听
   useEffect(() => {
     setWindowWidth(window.innerWidth);
@@ -319,8 +331,8 @@ const HeroSection = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <a 
-            href="#contact"
+          <button 
+            onClick={() => scrollToSection('contact')}
             className={`text-base py-2.5 px-7 transition-all duration-300 relative overflow-hidden group ${exploreHovered ? 'btn-transparent' : 'btn-gradient'}`}
           >
             <span className="relative z-10 flex items-center justify-center">
@@ -336,10 +348,10 @@ const HeroSection = () => {
             </span>
             {/* 按钮光效 */}
             <span className="absolute top-0 left-0 w-full h-full bg-white/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out"></span>
-          </a>
+          </button>
           
-          <a 
-            href="#work"
+          <button 
+            onClick={() => scrollToSection('products')}
             className="btn-transparent text-base py-2.5 px-7 relative overflow-hidden group"
             onMouseEnter={() => setExploreHovered(true)}
             onMouseLeave={() => setExploreHovered(false)}
@@ -374,7 +386,7 @@ const HeroSection = () => {
               opacity: 0,
               transition: 'opacity 0.3s ease, transform 0.3s ease'
             }}></span>
-          </a>
+          </button>
         </div>
       </div>
       
