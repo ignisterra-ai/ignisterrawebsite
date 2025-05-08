@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
 
 export default function PageTransition({ children }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation('common');
   
   useEffect(() => {
     const handleStart = () => setLoading(true);
@@ -35,7 +37,7 @@ export default function PageTransition({ children }) {
           >
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 border-t-4 border-b-4 border-white rounded-full animate-spin"></div>
-              <p className="mt-4 text-white font-medium">頁面載入中...</p>
+              <p className="mt-4 text-white font-medium">{t('loading')}</p>
             </div>
           </motion.div>
         ) : (

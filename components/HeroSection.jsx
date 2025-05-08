@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, EyeOff, Eye } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
+import AnimatedBackground from './AnimatedBackground'; // 引入动画背景组件
 
 // 使用 RAF 節流，更適合動畫
 const rafThrottle = (callback) => {
@@ -43,10 +44,38 @@ const HeroSection = () => {
   const [exploreHovered, setExploreHovered] = useState(false);
   const { t, i18n } = useTranslation('common');
   
+  // 添加背景动画开关状态 - 默认显示
+  const [showBackground, setShowBackground] = useState(true);
+  
   // 手部位置参数
   const leftHandPos = useRef({ x: 0, y: 0 });
   const rightHandPos = useRef({ x: 0, y: 0 });
   const requestAnimationFrameId = useRef(null);
+  
+  // 初始化背景状态和监听Header发出的自定义事件
+  useEffect(() => {
+    // 尝试获取用户偏好
+    const savedPreference = localStorage.getItem('disableBackground');
+    
+    // 初始化背景状态
+    if (savedPreference === 'true') {
+      setShowBackground(false);
+    } else {
+      setShowBackground(true);
+    }
+    
+    // 监听Header中背景切换事件
+    const handleBackgroundToggle = (event) => {
+      setShowBackground(event.detail.showBackground);
+    };
+    
+    window.addEventListener('backgroundToggle', handleBackgroundToggle);
+    
+    // 清理
+    return () => {
+      window.removeEventListener('backgroundToggle', handleBackgroundToggle);
+    };
+  }, []);
   
   // 平滑滚动到指定区块的函数
   const scrollToSection = (sectionId) => {
@@ -72,7 +101,7 @@ const HeroSection = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   
-  // 手部动画核心逻辑
+  // 手部动画核心逻辑 - 优化性能
   useEffect(() => {
     const leftHand = leftHandRef.current;
     const rightHand = rightHandRef.current;
@@ -89,7 +118,7 @@ const HeroSection = () => {
     let targetRightX = 0;
     let targetRightY = 0;
     
-    // 计算手指位置
+    // 优化手部移动计算，减少不必要的重新计算
     const calculateHandPositions = (mouseX, mouseY) => {
       const rect = container.getBoundingClientRect();
       const centerX = rect.width / 2;
@@ -110,7 +139,7 @@ const HeroSection = () => {
       const touchThreshold = rect.width * 0.08;
       const isTouching = Math.abs(relativeX) < touchThreshold;
       
-      // 更新触摸状态
+      // 更新触摸状态 - 只在状态改变时触发更新
       if (isTouching !== handsTouching) {
         setHandsTouching(isTouching);
       }
@@ -131,8 +160,16 @@ const HeroSection = () => {
       }
     };
     
-    // 更新手部位置的动画
-    const updateHandPositions = () => {
+    // 优化手部位置更新动画，提高性能
+    let lastTime = 0;
+    const updateHandPositions = (timestamp) => {
+      // 确保高优先级运行，限制每秒60帧
+      if (timestamp - lastTime < 16) {
+        requestAnimationFrameId.current = requestAnimationFrame(updateHandPositions);
+        return;
+      }
+      lastTime = timestamp;
+      
       // 平滑插值 - 调整平滑系数以获得更自然的动作
       const smoothFactor = window.innerWidth < 768 ? 0.15 : 0.13;
       
@@ -144,57 +181,40 @@ const HeroSection = () => {
       currentRightX = lerp(currentRightX, targetRightX, smoothFactor);
       currentRightY = lerp(currentRightY, targetRightY, smoothFactor);
       
-      // 应用变换 - 使用transform3d提高性能
+      // 使用GPU加速并减少重绘
       leftHand.style.transform = `translate3d(${currentLeftX}px, ${currentLeftY}px, 0)`;
       rightHand.style.transform = `translate3d(${currentRightX}px, ${currentRightY}px, 0)`;
       
-      // 继续更新
+      // 继续更新但优先级提高
       requestAnimationFrameId.current = requestAnimationFrame(updateHandPositions);
     };
     
-    // 鼠标移动处理
-    const handleMouseMove = (e) => {
+    // 优化鼠标移动事件处理
+    const handleMouseMove = rafThrottle((e) => {
       const rect = container.getBoundingClientRect();
       const mouseX = e.clientX - rect.left;
       const mouseY = e.clientY - rect.top;
       
       calculateHandPositions(mouseX, mouseY);
-    };
+    });
     
-    // 触摸处理
-    const handleTouchMove = (e) => {
-      // 移除preventDefault，允许默认的滚动行为
-      // e.preventDefault();
-      
+    // 触摸处理优化
+    const handleTouchMove = rafThrottle((e) => {
       const touch = e.touches[0];
       if (!touch) return;
       
-      // 添加触摸事件的节流处理
-      if (!window.requestAnimationFrame) {
-        // 对不支持requestAnimationFrame的浏览器使用备用方案
-        const rect = container.getBoundingClientRect();
-        const touchX = touch.clientX - rect.left;
-        const touchY = touch.clientY - rect.top;
-        
-        calculateHandPositions(touchX, touchY);
-      } else {
-        // 使用requestAnimationFrame来优化性能
-        window.cancelAnimationFrame(window.touchMoveRAF);
-        window.touchMoveRAF = window.requestAnimationFrame(() => {
-          const rect = container.getBoundingClientRect();
-          const touchX = touch.clientX - rect.left;
-          const touchY = touch.clientY - rect.top;
-          
-          calculateHandPositions(touchX, touchY);
-        });
-      }
-    };
+      const rect = container.getBoundingClientRect();
+      const touchX = touch.clientX - rect.left;
+      const touchY = touch.clientY - rect.top;
+      
+      calculateHandPositions(touchX, touchY);
+    });
     
     // 添加事件监听
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('touchmove', handleTouchMove, { passive: true }); // 设置为passive: true
     
-    // 开始动画
+    // 开始动画，使用时间戳
     requestAnimationFrameId.current = requestAnimationFrame(updateHandPositions);
     
     // 清理
@@ -203,9 +223,6 @@ const HeroSection = () => {
       container.removeEventListener('touchmove', handleTouchMove);
       if (requestAnimationFrameId.current) {
         cancelAnimationFrame(requestAnimationFrameId.current);
-      }
-      if (window.touchMoveRAF) {
-        cancelAnimationFrame(window.touchMoveRAF);
       }
     };
   }, [handsTouching]);
@@ -260,8 +277,11 @@ const HeroSection = () => {
   
   return (
     <div className="relative min-h-[85vh] md:min-h-screen overflow-visible pointer-events-auto" ref={containerRef}>
+      {/* 只在开启状态时显示动画背景 */}
+      {showBackground && <AnimatedBackground />}
+      
       {/* 機械手與人手容器 - 调整手部图像大小和位置 */}
-      <div className="absolute top-[50%] sm:top-[40%] left-0 w-full flex justify-center items-center pointer-events-none" style={{ zIndex: 5 }}>
+      <div className="absolute top-[50%] sm:top-[40%] left-0 w-full flex justify-center items-center pointer-events-none" style={{ zIndex: 10 }}>
         <div className="relative flex justify-center items-center gap-0 h-[75vh] md:h-screen w-full">
           {/* 左側機械手 */}
           <div 
@@ -269,7 +289,8 @@ const HeroSection = () => {
             className="hand-left h-full w-1/2 flex justify-end items-center will-change-transform"
             style={{ 
               transition: 'filter 0.3s ease',
-              transform: 'translate3d(0, 0, 0)'
+              transform: 'translate3d(0, 0, 0)',
+              willChange: 'transform', // 告诉浏览器使用GPU加速
             }}
           >
             <div className="relative h-full w-full">
@@ -283,7 +304,7 @@ const HeroSection = () => {
                   maxHeight: '100vh',
                   width: 'auto',
                   backgroundColor: 'transparent',
-                  willChange: 'transform'
+                  willChange: 'transform',
                 }}
                 unoptimized={true}
                 loading="eager"
@@ -298,7 +319,8 @@ const HeroSection = () => {
             className="hand-right h-full w-1/2 flex justify-start items-center will-change-transform"
             style={{ 
               transition: 'filter 0.3s ease',
-              transform: 'translate3d(0, 0, 0)'
+              transform: 'translate3d(0, 0, 0)',
+              willChange: 'transform', // 告诉浏览器使用GPU加速
             }}
           >
             <div className="relative h-full w-full">
@@ -312,7 +334,7 @@ const HeroSection = () => {
                   maxHeight: '100vh',
                   width: 'auto',
                   backgroundColor: 'transparent',
-                  willChange: 'transform'
+                  willChange: 'transform',
                 }}
                 unoptimized={true}
                 loading="eager"

@@ -6,9 +6,24 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function Home() {
   const { t } = useTranslation('common');
+  const router = useRouter();
+  
+  // 检查URL中是否有scrollToProducts参数，如果有则滚动到产品区块
+  useEffect(() => {
+    if (router.query.scrollToProducts === 'true' || router.asPath.includes('#products')) {
+      setTimeout(() => {
+        const productsSection = document.getElementById('products');
+        if (productsSection) {
+          productsSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [router.query, router.asPath]);
   
   return (
     <div className="bg-transparent">

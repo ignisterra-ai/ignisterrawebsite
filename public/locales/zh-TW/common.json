@@ -204,5 +204,8 @@
   "chatInputPlaceholder": "輸入您的問題...",
   "chatInputLabel": "聊天輸入框",
   "chatSendButton": "發送訊息",
-  "chatFooterText": "Ignis Mind — 您的智能商業夥伴 by 晟垚智能科技"
+  "chatFooterText": "Ignis Mind — 您的智能商業夥伴 by 晟垚智能科技",
+  "underConstruction": "建構中，敬請期待",
+  "back": "返回",
+  "loading": "頁面載入中..."
 } 

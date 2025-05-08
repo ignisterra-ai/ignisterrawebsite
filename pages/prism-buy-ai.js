@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -13,6 +13,22 @@ const PrismBuyAI = () => {
   const { t } = useTranslation();
   const title = "購會買 | Prism Buy AI - 晟垚智能科技";
   const description = "Prism Buy AI - 智能導購解決方案。美學與數據融合的選購體驗。";
+  
+  // 在组件挂载后检查URL中是否有#products标识，如果有则滚动到产品区块
+  useEffect(() => {
+    if (router.asPath.includes('#products')) {
+      setTimeout(() => {
+        const productsSection = document.getElementById('products');
+        if (productsSection) {
+          productsSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [router.asPath]);
+  
+  const handleBackClick = () => {
+    router.push('/?scrollToProducts=true');
+  };
   
   return (
     <>
@@ -38,7 +54,7 @@ const PrismBuyAI = () => {
         {/* 頂部導航返回按鈕 */}
         <div className="fixed top-8 left-8 z-50">
           <button
-            onClick={() => router.push('/#work')}
+            onClick={handleBackClick}
             className="flex items-center space-x-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full shadow-lg border border-white/30 transition-all hover:bg-white/30"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +68,7 @@ const PrismBuyAI = () => {
         <div className="flex-grow flex items-center justify-center relative">
           {/* 背景模糊效果 */}
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-red-700/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-red-200/50 to-rose-300/50"></div>
           </div>
 
           {/* 霧化內容框 */}
@@ -66,7 +82,7 @@ const PrismBuyAI = () => {
               boxShadow: '0 8px 32px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.4), inset 0 0 20px rgba(255,255,255,0.1)'
             }}
           >
-            <div className="w-20 h-20 rounded-full bg-red-600 flex items-center justify-center mx-auto mb-8 shadow-xl border-4 border-white/50">
+            <div className="w-20 h-20 rounded-full bg-rose-500 flex items-center justify-center mx-auto mb-8 shadow-xl border-4 border-white/50">
               <span className="text-white text-3xl font-bold">購</span>
             </div>
             
@@ -77,7 +93,7 @@ const PrismBuyAI = () => {
             <div className="w-16 h-1 bg-white/50 mx-auto mb-8"></div>
             
             <p className="text-xl md:text-2xl text-white/90 mb-8 font-light">
-              建構中，敬請期待
+              {t('underConstruction')}
             </p>
             
             <motion.div 

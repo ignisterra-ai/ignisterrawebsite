@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { X, ArrowLeft } from 'lucide-react';
+import { X, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
@@ -11,8 +11,38 @@ const Header = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [headerHidden, setHeaderHidden] = useState(false);
+  const [showBackground, setShowBackground] = useState(true);
   const router = useRouter();
   const { t } = useTranslation('common');
+  
+  // 初始化背景状态
+  useEffect(() => {
+    // 从localStorage获取背景设置
+    const savedPreference = localStorage.getItem('disableBackground');
+    if (savedPreference === 'true') {
+      setShowBackground(false);
+    } else {
+      setShowBackground(true);
+    }
+  }, []);
+
+  // 保存用户偏好设置并触发自定义事件
+  useEffect(() => {
+    try {
+      localStorage.setItem('disableBackground', String(!showBackground));
+      // 触发自定义事件通知其他组件背景状态变化
+      const event = new CustomEvent('backgroundToggle', { detail: { showBackground } });
+      window.dispatchEvent(event);
+    } catch (error) {
+      console.error('无法保存背景设置:', error);
+    }
+  }, [showBackground]);
+
+  // 切换背景显示状态
+  const toggleBackground = (e) => {
+    e.stopPropagation(); // 防止触发其他点击事件
+    setShowBackground(prev => !prev);
+  };
   
   // 检测设备是否为移动设备
   useEffect(() => {
@@ -196,6 +226,20 @@ const Header = () => {
               {t('brandName')}
             </span>
           </Link>
+        </div>
+        
+        {/* 背景开关按钮 - 仅在菜单打开时显示，在右上角 */}
+        <div 
+          className="absolute top-5 right-28 md:top-7 md:right-32 z-[60] cursor-pointer transition-opacity duration-300"
+          onClick={toggleBackground}
+        >
+          <div className="w-10 h-10 relative flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+            {showBackground ? (
+              <EyeOff size={22} strokeWidth={1.5} className="transform -translate-y-0.5" />
+            ) : (
+              <Eye size={22} strokeWidth={1.5} className="transform -translate-y-0.5" />
+            )}
+          </div>
         </div>
         
         {/* 移动版语言切换按钮 - 仅在菜单打开时显示 */}
